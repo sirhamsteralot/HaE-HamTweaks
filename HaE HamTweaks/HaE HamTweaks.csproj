@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HaEPluginCore">
+      <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Plugins\HaEPluginCore.dll</HintPath>
+    </Reference>
+    <Reference Include="HaEPluginCore.Console">
+      <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Plugins\HaEPluginCore.Console.dll</HintPath>
+    </Reference>
     <Reference Include="Sandbox.Common">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Common.dll</HintPath>
     </Reference>
@@ -116,7 +122,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="HaEHamTweaks.cs" />
+    <Compile Include="HaEUITweaks.cs" />
+    <Compile Include="HaEUXTweaks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

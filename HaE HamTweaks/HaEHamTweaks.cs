@@ -11,17 +11,14 @@ namespace HaE_HamTweaks
     {
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         public void Init(object gameInstance)
         {
-            throw new NotImplementedException();
         }
 
         public void Update()
         {
-            throw new NotImplementedException();
         }
     }
 }
