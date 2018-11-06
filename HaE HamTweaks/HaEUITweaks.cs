@@ -6,7 +6,26 @@ using System.Threading.Tasks;
 
 namespace HaE_HamTweaks
 {
-    class HaEUITweaks
+    public partial class HaEUITweaks
     {
+        public HaEUITweaks()
+        {
+            OnInit();
+        }
+
+        public void OnInit()
+        {
+
+        }
+
+        public void OnUpdate()
+        {
+
+        }
+
+        public void OnDispose()
+        {
+
+        }
     }
 }

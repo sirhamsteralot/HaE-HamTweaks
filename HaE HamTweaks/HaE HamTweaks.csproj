@@ -123,6 +123,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HaEHamTweaks.cs" />
+    <Compile Include="HaERenderTweaks.cs" />
+    <Compile Include="HaETweakConfiguration.cs" />
     <Compile Include="HaEUITweaks.cs" />
     <Compile Include="HaEUXTweaks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

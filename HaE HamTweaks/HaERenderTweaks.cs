@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HaE_HamTweaks
 {
-    public partial class HaEUXTweaks
+    public partial class HaERenderTweaks
     {
-        public HaEUXTweaks()
+        public HaERenderTweaks()
         {
             OnInit();
         }
