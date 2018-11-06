@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaE HamTweaks", "HaE HamTweaks\HaE HamTweaks.csproj", "{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4A9C503-538C-4B3C-A821-A5BE48815277}
+	EndGlobalSection
+EndGlobal
