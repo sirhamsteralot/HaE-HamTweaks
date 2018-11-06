@@ -12,11 +12,13 @@ namespace HaE_HamTweaks
     public class HaETweakConfiguration
     {
         [XmlIgnore]
-        public string fileName { get; set; }
+        public string fileName => "HaEHamTweaks.cfg";
 
-        public HaETweakConfiguration(string fileName)
+        public float maxFPS = 240;
+
+        public HaETweakConfiguration()
         {
-            this.fileName = fileName;
+
         }
     }
 }

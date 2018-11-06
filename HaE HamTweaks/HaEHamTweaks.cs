@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 using VRage.Plugins;
+using HaEPluginCore;
 
 namespace HaE_HamTweaks
 {
     public class HaEHamTweaks : IPlugin
     {
-        public static string StoragePath => Path.GetDirectoryName(typeof(HaEHamTweaks).Assembly.Location);
-
         public static HaETweakConfiguration config;
         public static HaEUITweaks uiTweaks;
         public static HaEUXTweaks uxTweaks;
@@ -20,7 +19,7 @@ namespace HaE_HamTweaks
 
         public void Init(object gameInstance)
         {
-            config = new HaETweakConfiguration("HaEHamTweaks.cfg");
+            config = new HaETweakConfiguration();
             DeSerialize();
 
             uiTweaks = new HaEUITweaks();
@@ -37,12 +36,18 @@ namespace HaE_HamTweaks
 
         public void Dispose()
         {
+            uiTweaks.OnDispose();
+            uxTweaks.OnDispose();
+            renderTweaks.OnDispose();
             Save();
         }
 
-        public void Save()
+        public static void Save()
         {
-            using (var writer = new StreamWriter($"{StoragePath}\\{config.fileName}"))
+            if (!Directory.Exists($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}\\{config.fileName}"))
+                Directory.CreateDirectory($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}");
+
+            using (var writer = new StreamWriter($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}\\{config.fileName}"))
             {
                 var x = new XmlSerializer(typeof(HaETweakConfiguration));
                 x.Serialize(writer, config);
@@ -50,20 +55,23 @@ namespace HaE_HamTweaks
             }
         }
 
-        public void DeSerialize()
+        public static void DeSerialize()
         {
-            try
+            if (Directory.Exists($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}"))
             {
-                using (var writer = new StreamReader($"{StoragePath}\\{config.fileName}"))
+                try
                 {
-                    var x = new XmlSerializer(typeof(HaETweakConfiguration));
-                    config = (HaETweakConfiguration)x.Deserialize(writer);
-                    writer.Close();
+                    using (var writer = new StreamReader($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}\\{config.fileName}"))
+                    {
+                        var x = new XmlSerializer(typeof(HaETweakConfiguration));
+                        config = (HaETweakConfiguration)x.Deserialize(writer);
+                        writer.Close();
+                    }
                 }
-            }
-            catch (FileNotFoundException e)
-            {
-                //nom
+                catch (FileNotFoundException e)
+                {
+                    //nom
+                }
             }
         }
     }
