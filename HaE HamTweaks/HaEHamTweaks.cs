@@ -44,7 +44,7 @@ namespace HaE_HamTweaks
 
         public static void Save()
         {
-            if (!Directory.Exists($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}\\{config.fileName}"))
+            if (!Directory.Exists($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}"))
                 Directory.CreateDirectory($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}");
 
             using (var writer = new StreamWriter($"{HaEConstants.pluginFolder}\\{HaEConstants.StorageFolder}\\{config.fileName}"))
