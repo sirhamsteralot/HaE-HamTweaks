@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Reflection;
 using Sandbox;
 using Sandbox.Definitions;
+using Sandbox.Game;
+using Sandbox.Game.Gui;
 using VRage.Library.Utils;
 using VRage.Plugins;
 using VRageRender;
@@ -26,10 +28,12 @@ namespace HaE_HamTweaks
             RegisterCommands();
             SetMaxFPS(HaEHamTweaks.config.maxFPS);
 
-            if (HaEHamTweaks.config.disableLensDirt)
-                SetLensDirtTexture(HaEConstants.pluginFolder + "\\" + HaEConstants.AssetFolder + "\\NoDirt.DDS");
-            else
-                SetLensDirtTexture(MyPostprocessSettings.Default.DirtTexture);
+            MySandboxGame.Static.OnGameLoaded += Static_OnGameLoaded;
+        }
+
+        private void Static_OnGameLoaded(object sender, EventArgs e)
+        {
+            SetLensDirtTexture(HaEHamTweaks.config.disableLensDirt);
         }
 
         public void OnUpdate()
@@ -51,11 +55,20 @@ namespace HaE_HamTweaks
             field.SetValue(renderThread, new WaitForTargetFrameRate((MyGameTimer)field2.GetValue(renderThread), maxFrameRate));
         }
 
+        public void SetLensDirtTexture(bool val)
+        {
+            if (val)
+                SetLensDirtTexture(HaEConstants.pluginFolder + "\\" + HaEConstants.AssetFolder + "\\NoDirt.DDS");
+            else
+                SetLensDirtTexture(MyPostprocessSettings.Default.DirtTexture);
+        }
+
         public void SetLensDirtTexture(string texturePath)
         {
             var settings = MyDefinitionManager.Static.EnvironmentDefinition.PostProcessSettings;
 
             settings.DirtTexture = texturePath;
+            MyDefinitionManager.Static.EnvironmentDefinition.PostProcessSettings = settings;
             MyPostprocessSettingsWrapper.ReloadSettingsFrom(settings);
         }
         #endregion

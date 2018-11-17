@@ -41,15 +41,12 @@ namespace HaE_HamTweaks
             if (!bool.TryParse(args[0], out newDirtVal))
                 return $"Could not parse ${args[0]} into bool!";
 
-            HaEHamTweaks.config.disableLensDirt = newDirtVal;
+            HaEHamTweaks.config.disableLensDirt = !newDirtVal;
 
-            if (newDirtVal)
-                SetLensDirtTexture(HaEConstants.pluginFolder + "\\" + HaEConstants.AssetFolder + "\\NoDirt.DDS");
-            else
-                SetLensDirtTexture(MyPostprocessSettings.Default.DirtTexture);
+            SetLensDirtTexture(!newDirtVal);
 
             HaEHamTweaks.Save();
-            return $"DisableLensDirt changed to: {newDirtVal}";
+            return $"DisableLensDirt changed to: {!newDirtVal}";
         }
     }
 }
