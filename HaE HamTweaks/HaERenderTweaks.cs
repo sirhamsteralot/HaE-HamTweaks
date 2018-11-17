@@ -5,9 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using Sandbox;
+using Sandbox.Definitions;
 using VRage.Library.Utils;
 using VRage.Plugins;
+using VRageRender;
 using VRageRender.ExternalApp;
+using HaEPluginCore;
 
 namespace HaE_HamTweaks
 {
@@ -22,6 +25,11 @@ namespace HaE_HamTweaks
         {
             RegisterCommands();
             SetMaxFPS(HaEHamTweaks.config.maxFPS);
+
+            if (HaEHamTweaks.config.disableLensDirt)
+                SetLensDirtTexture(HaEConstants.pluginFolder + "\\" + HaEConstants.AssetFolder + "\\NoDirt.DDS");
+            else
+                SetLensDirtTexture(MyPostprocessSettings.Default.DirtTexture);
         }
 
         public void OnUpdate()
@@ -41,6 +49,14 @@ namespace HaE_HamTweaks
             FieldInfo field = renderThread.GetType().GetField("m_waiter", BindingFlags.Instance | BindingFlags.NonPublic);
             FieldInfo field2 = renderThread.GetType().GetField("m_timer", BindingFlags.Instance | BindingFlags.NonPublic);
             field.SetValue(renderThread, new WaitForTargetFrameRate((MyGameTimer)field2.GetValue(renderThread), maxFrameRate));
+        }
+
+        public void SetLensDirtTexture(string texturePath)
+        {
+            var settings = MyDefinitionManager.Static.EnvironmentDefinition.PostProcessSettings;
+
+            settings.DirtTexture = texturePath;
+            MyPostprocessSettingsWrapper.ReloadSettingsFrom(settings);
         }
         #endregion
     }

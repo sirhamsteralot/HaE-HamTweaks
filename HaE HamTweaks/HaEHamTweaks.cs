@@ -12,6 +12,8 @@ namespace HaE_HamTweaks
 {
     public class HaEHamTweaks : IPlugin
     {
+        public const int MinBasePluginVersion = 1040;
+
         public static HaETweakConfiguration config;
         public static HaEUITweaks uiTweaks;
         public static HaEUXTweaks uxTweaks;
@@ -19,6 +21,9 @@ namespace HaE_HamTweaks
 
         public void Init(object gameInstance)
         {
+            if (HaEConstants.versionNumber < MinBasePluginVersion)
+                throw new Exception("HaE Plugincore, BasePlugin out of date! please update!");
+
             config = new HaETweakConfiguration();
             DeSerialize();
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaEPluginCore;
 using HaEPluginCore.Console;
+using VRageRender;
 
 namespace HaE_HamTweaks
 {
@@ -13,6 +14,7 @@ namespace HaE_HamTweaks
         public void RegisterCommands()
         {
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("ChangeMaxFPS", "Changes max FPS", ChangeMaxFPS));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetLensDirt", "Sets Lens Dirt, Usage: SetLensDirt {true/false}", SetLensDirt));
         }
 
         public string ChangeMaxFPS(List<string> args)
@@ -28,6 +30,26 @@ namespace HaE_HamTweaks
             SetMaxFPS(newFpsVal);
             HaEHamTweaks.Save();
             return $"MaxFPS changed to: {newFpsVal}";
+        }
+
+        public string SetLensDirt(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Not Enough args!";
+
+            bool newDirtVal;
+            if (!bool.TryParse(args[0], out newDirtVal))
+                return $"Could not parse ${args[0]} into bool!";
+
+            HaEHamTweaks.config.disableLensDirt = newDirtVal;
+
+            if (newDirtVal)
+                SetLensDirtTexture(HaEConstants.pluginFolder + "\\" + HaEConstants.AssetFolder + "\\NoDirt.DDS");
+            else
+                SetLensDirtTexture(MyPostprocessSettings.Default.DirtTexture);
+
+            HaEHamTweaks.Save();
+            return $"DisableLensDirt changed to: {newDirtVal}";
         }
     }
 }
