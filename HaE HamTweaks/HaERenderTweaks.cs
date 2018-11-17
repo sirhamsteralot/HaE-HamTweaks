@@ -34,12 +34,14 @@ namespace HaE_HamTweaks
 
             SetMaxFPS(HaEHamTweaks.config.maxFPS);
 
-            MySession.OnLoading += MySession_OnLoading; ;
+            MySession.OnLoading += MySession_OnLoading;
         }
 
         private void MySession_OnLoading()
         {
             SetLensDirtRatio(HaEHamTweaks.config.lensDirtBloomRatio);
+            SetBloomMult(HaEHamTweaks.config.bloomMultiplier);
+            SetChromaticFactor(HaEHamTweaks.config.chromaticFactor);
         }
 
         public void OnUpdate()

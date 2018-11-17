@@ -15,9 +15,9 @@ namespace HaE_HamTweaks
         public string fileName => "HaEHamTweaks.cfg";
 
         public float maxFPS = 240;
-        public float lensDirtBloomRatio = 1;
-        public float bloomMultiplier = 1;
-        public float chromaticFactor = 1;
+        public float lensDirtBloomRatio = 0;
+        public float bloomMultiplier = 0.0025f;
+        public float chromaticFactor = 0.025f;
 
         public HaETweakConfiguration()
         {
