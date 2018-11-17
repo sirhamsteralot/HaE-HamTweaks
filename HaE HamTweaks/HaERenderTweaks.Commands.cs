@@ -14,7 +14,8 @@ namespace HaE_HamTweaks
         public void RegisterCommands()
         {
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("ChangeMaxFPS", "Changes max FPS", ChangeMaxFPS));
-            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetLensDirt", "Sets Lens Dirt, Usage: SetLensDirt {true/false}", SetLensDirt));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetDirtBloomRatio", "Sets Lens Dirt/Bloom ratio, Usage: SetLensDirt {ratio}", SetDirtBloomRatio));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetBloomMultiplier", "Sets Bloom multiplier, Usage: SetBloomMultiplier {multiplier}", SetBloomMultiplier));
         }
 
         public string ChangeMaxFPS(List<string> args)
@@ -32,21 +33,38 @@ namespace HaE_HamTweaks
             return $"MaxFPS changed to: {newFpsVal}";
         }
 
-        public string SetLensDirt(List<string> args)
+        public string SetDirtBloomRatio(List<string> args)
         {
             if (args.Count < 1)
                 return "Not Enough args!";
 
-            bool newDirtVal;
-            if (!bool.TryParse(args[0], out newDirtVal))
-                return $"Could not parse ${args[0]} into bool!";
+            float newDirtVal;
+            if (!float.TryParse(args[0], out newDirtVal))
+                return $"Could not parse ${args[0]} into float!";
 
-            HaEHamTweaks.config.disableLensDirt = !newDirtVal;
+            HaEHamTweaks.config.lensDirtBloomRatio = newDirtVal;
 
-            SetLensDirtTexture(!newDirtVal);
+            SetLensDirtRatio(newDirtVal);
 
             HaEHamTweaks.Save();
-            return $"DisableLensDirt changed to: {!newDirtVal}";
+            return $"LensDirtRatio changed to: {newDirtVal}";
+        }
+
+        public string SetBloomMultiplier(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Not Enough args!";
+
+            float bloomMultiplier;
+            if (!float.TryParse(args[0], out bloomMultiplier))
+                return $"Could not parse ${args[0]} into float!";
+
+            HaEHamTweaks.config.bloomMultiplier = bloomMultiplier;
+
+            SetLensDirtRatio(bloomMultiplier);
+
+            HaEHamTweaks.Save();
+            return $"BloomMultiplier changed to: {bloomMultiplier}";
         }
     }
 }

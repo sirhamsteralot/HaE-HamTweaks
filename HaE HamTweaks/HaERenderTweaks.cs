@@ -8,6 +8,8 @@ using Sandbox;
 using Sandbox.Definitions;
 using Sandbox.Game;
 using Sandbox.Game.Gui;
+using Sandbox.Game.World;
+using VRage.Game.ModAPI;
 using VRage.Library.Utils;
 using VRage.Plugins;
 using VRageRender;
@@ -18,6 +20,8 @@ namespace HaE_HamTweaks
 {
     public partial class HaERenderTweaks
     {
+        public MyPostprocessSettings preTamperSettings; 
+
         public HaERenderTweaks()
         {
             OnInit();
@@ -26,14 +30,16 @@ namespace HaE_HamTweaks
         public void OnInit()
         {
             RegisterCommands();
+            preTamperSettings = MyPostprocessSettingsWrapper.Settings;
+
             SetMaxFPS(HaEHamTweaks.config.maxFPS);
 
-            MySandboxGame.Static.OnGameLoaded += Static_OnGameLoaded;
+            MySession.OnLoading += MySession_OnLoading; ;
         }
 
-        private void Static_OnGameLoaded(object sender, EventArgs e)
+        private void MySession_OnLoading()
         {
-            SetLensDirtTexture(HaEHamTweaks.config.disableLensDirt);
+            SetLensDirtRatio(HaEHamTweaks.config.lensDirtBloomRatio);
         }
 
         public void OnUpdate()
@@ -55,21 +61,14 @@ namespace HaE_HamTweaks
             field.SetValue(renderThread, new WaitForTargetFrameRate((MyGameTimer)field2.GetValue(renderThread), maxFrameRate));
         }
 
-        public void SetLensDirtTexture(bool val)
+        public void SetLensDirtRatio(float ratio)
         {
-            if (val)
-                SetLensDirtTexture(HaEConstants.pluginFolder + "\\" + HaEConstants.AssetFolder + "\\NoDirt.DDS");
-            else
-                SetLensDirtTexture(MyPostprocessSettings.Default.DirtTexture);
+            MyPostprocessSettingsWrapper.Settings.Data.BloomDirtRatio = ratio;
         }
 
-        public void SetLensDirtTexture(string texturePath)
+        public void SetBloomMult(float mult)
         {
-            var settings = MyDefinitionManager.Static.EnvironmentDefinition.PostProcessSettings;
-
-            settings.DirtTexture = texturePath;
-            MyDefinitionManager.Static.EnvironmentDefinition.PostProcessSettings = settings;
-            MyPostprocessSettingsWrapper.ReloadSettingsFrom(settings);
+            MyPostprocessSettingsWrapper.Settings.Data.BloomMult = mult;
         }
         #endregion
     }
