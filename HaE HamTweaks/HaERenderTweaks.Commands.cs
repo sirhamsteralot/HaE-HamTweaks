@@ -13,9 +13,10 @@ namespace HaE_HamTweaks
     {
         public void RegisterCommands()
         {
-            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("ChangeMaxFPS", "Changes max FPS", ChangeMaxFPS));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("ChangeMaxFPS", "Changes max FPS, Usage: ChangeMaxFPS {fps}", ChangeMaxFPS));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetDirtBloomRatio", "Sets Lens Dirt/Bloom ratio, Usage: SetLensDirt {ratio}", SetDirtBloomRatio));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetBloomMultiplier", "Sets Bloom multiplier, Usage: SetBloomMultiplier {multiplier}", SetBloomMultiplier));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetChromaticFactor", "Sets Chromatic factor, Usage: SetChromaticFactor {factor}", SetChromaticFactor));
         }
 
         public string ChangeMaxFPS(List<string> args)
@@ -61,10 +62,27 @@ namespace HaE_HamTweaks
 
             HaEHamTweaks.config.bloomMultiplier = bloomMultiplier;
 
-            SetLensDirtRatio(bloomMultiplier);
+            SetBloomMult(bloomMultiplier);
 
             HaEHamTweaks.Save();
             return $"BloomMultiplier changed to: {bloomMultiplier}";
+        }
+
+        public string SetChromaticFactor(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Not Enough args!";
+
+            float chromaticFactor;
+            if (!float.TryParse(args[0], out chromaticFactor))
+                return $"Could not parse ${args[0]} into float!";
+
+            HaEHamTweaks.config.chromaticFactor = chromaticFactor;
+
+            SetChromaticFactor(chromaticFactor);
+
+            HaEHamTweaks.Save();
+            return $"Chromatic factor changed to: {chromaticFactor}";
         }
     }
 }

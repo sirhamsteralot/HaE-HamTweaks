@@ -70,6 +70,11 @@ namespace HaE_HamTweaks
         {
             MyPostprocessSettingsWrapper.Settings.Data.BloomMult = mult;
         }
+
+        public void SetChromaticFactor(float factor)
+        {
+            MyPostprocessSettingsWrapper.Settings.Data.ChromaticFactor = factor;
+        }
         #endregion
     }
 }
