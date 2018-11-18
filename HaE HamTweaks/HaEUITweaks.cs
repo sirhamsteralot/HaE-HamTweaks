@@ -15,7 +15,7 @@ namespace HaE_HamTweaks
 
         public void OnInit()
         {
-
+            RegisterCommands();
         }
 
         public void OnUpdate()
