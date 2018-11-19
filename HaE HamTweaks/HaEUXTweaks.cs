@@ -15,6 +15,8 @@ using Sandbox.Game.SessionComponents;
 using Sandbox.Game.SessionComponents.Clipboard;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Entities.Cube;
+using Sandbox.Engine;
+using Sandbox.Engine.Utils;
 
 namespace HaE_HamTweaks
 {
@@ -25,11 +27,12 @@ namespace HaE_HamTweaks
         public HaEUXTweaks()
         {
             OnInit();
+            RegisterCommands();
         }
 
         public void OnInit()
         {
-            RegisterCommands();
+            MyFakes.MULTIPLAYER_CLIENT_SIMULATE_CONTROLLED_CAR = true;
         }
 
         public void OnUpdate()
