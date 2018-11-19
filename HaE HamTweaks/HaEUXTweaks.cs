@@ -35,7 +35,6 @@ namespace HaE_HamTweaks
 
         public void OnInit()
         {
-            MyFakes.MULTIPLAYER_CLIENT_SIMULATE_CONTROLLED_CAR = true;
             MySession.OnLoading += MySession_OnLoading;
         }
 
