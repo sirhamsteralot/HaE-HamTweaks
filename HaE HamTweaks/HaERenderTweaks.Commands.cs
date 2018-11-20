@@ -65,7 +65,7 @@ namespace HaE_HamTweaks
             SetLensDirtRatio(newDirtVal);
 
             HaEHamTweaks.Save();
-            return $"LensDirtRatio changed to: {newDirtVal}";
+            return $"LensDirtRatio set to: {newDirtVal}";
         }
 
         public string SetBloomMultiplier(List<string> args)
@@ -82,7 +82,7 @@ namespace HaE_HamTweaks
             SetBloomMult(bloomMultiplier);
 
             HaEHamTweaks.Save();
-            return $"BloomMultiplier changed to: {bloomMultiplier}";
+            return $"BloomMultiplier set to: {bloomMultiplier}";
         }
 
         public string SetChromaticFactor(List<string> args)
@@ -99,7 +99,7 @@ namespace HaE_HamTweaks
             SetChromaticFactor(chromaticFactor);
 
             HaEHamTweaks.Save();
-            return $"Chromatic factor changed to: {chromaticFactor}";
+            return $"Chromatic factor set to: {chromaticFactor}";
         }
     }
 }
