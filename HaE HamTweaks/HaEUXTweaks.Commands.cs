@@ -32,7 +32,7 @@ namespace HaE_HamTweaks
                 return $"Could not parse ${args[0]} into bool!";
 
             MyFakes.DISABLE_CLIPBOARD_PLACEMENT_TEST = placementTest;
-            return $"Set placement test: {placementTest}";
+            return $"Set override: {placementTest}";
         }
         #endregion
     }
