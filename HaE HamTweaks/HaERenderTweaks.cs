@@ -9,6 +9,10 @@ using Sandbox.Definitions;
 using Sandbox.Game;
 using Sandbox.Game.Gui;
 using Sandbox.Game.World;
+using Sandbox.Engine;
+using Sandbox.Engine.Utils;
+using VRage;
+using VRage.Game;
 using VRage.Game.ModAPI;
 using VRage.Library.Utils;
 using VRage.Plugins;
@@ -42,6 +46,7 @@ namespace HaE_HamTweaks
             SetLensDirtRatio(HaEHamTweaks.config.lensDirtBloomRatio);
             SetBloomMult(HaEHamTweaks.config.bloomMultiplier);
             SetChromaticFactor(HaEHamTweaks.config.chromaticFactor);
+            SetBlockEdges(HaEHamTweaks.config.enableBlockEdges);
         }
 
         public void OnUpdate()
@@ -76,6 +81,11 @@ namespace HaE_HamTweaks
         public void SetChromaticFactor(float factor)
         {
             MyPostprocessSettingsWrapper.Settings.Data.ChromaticFactor = factor;
+        }
+
+        public void SetBlockEdges(bool edges)
+        {
+            MyFakes.ENABLE_EDGES = edges;
         }
         #endregion
     }

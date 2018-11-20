@@ -18,6 +18,7 @@ namespace HaE_HamTweaks
         public float lensDirtBloomRatio = 0;
         public float bloomMultiplier = 0.0025f;
         public float chromaticFactor = 0.025f;
+        public bool enableBlockEdges = true;
 
         public HaETweakConfiguration()
         {

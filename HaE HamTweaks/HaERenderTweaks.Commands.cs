@@ -17,6 +17,23 @@ namespace HaE_HamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetDirtBloomRatio", "Sets Lens Dirt/Bloom ratio, Usage: SetLensDirt {ratio}", SetDirtBloomRatio));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetBloomMultiplier", "Sets Bloom multiplier, Usage: SetBloomMultiplier {multiplier}", SetBloomMultiplier));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetChromaticFactor", "Sets Chromatic factor, Usage: SetChromaticFactor {factor}", SetChromaticFactor));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetBlockEdges", "Sets Block Edges, Usage: SetBlockEdges {true/false}", SetBlockEdges));
+
+        }
+
+        public string SetBlockEdges(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Not Enough args!";
+
+            bool blockEdges;
+            if (!bool.TryParse(args[0], out blockEdges))
+                return $"Could not parse ${args[0]} into bool!";
+
+            HaEHamTweaks.config.enableBlockEdges = blockEdges;
+            SetBlockEdges(blockEdges);
+            HaEHamTweaks.Save();
+            return $"Block Edges changed to: {blockEdges}\nThis requires a world reload to apply on existing blocks!";
         }
 
         public string ChangeMaxFPS(List<string> args)
