@@ -4,20 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using VRage;
 using VRage.Input;
+using VRage.FileSystem;
+using VRage.ModAPI;
 using VRage.Game;
+using VRage.Game.ModAPI;
 using VRage.Game.ObjectBuilders;
 using VRage.Game.ObjectBuilders.Definitions;
 using VRage.Game.ObjectBuilders.Definitions.SessionComponents;
 using Sandbox;
 using Sandbox.ModAPI;
 using Sandbox.Game;
+using Sandbox.Game.Gui;
 using Sandbox.Game.World;
 using Sandbox.Game.SessionComponents;
 using Sandbox.Game.SessionComponents.Clipboard;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Entities.Cube;
+using Sandbox.Game.Entities.Blocks;
 using Sandbox.Engine;
 using Sandbox.Engine.Utils;
 
@@ -71,6 +77,78 @@ namespace HaE_HamTweaks
                 throw new Exception("Property null!");
 
             property.GetSetMethod(true).Invoke(input, new object[] { true });
+        }
+
+        public List<IMyCubeGrid> GetGridGroupWithName(string name)
+        {
+            HashSet<IMyEntity> entities = new HashSet<IMyEntity>();
+            MyAPIGateway.Entities.GetEntities(entities, x => x.DisplayName == name);
+
+            IMyCubeGrid cubegrid = null;
+            foreach (var entity in entities)
+                cubegrid = entity as IMyCubeGrid;
+
+            if (cubegrid == null)
+                return null;
+
+            return MyAPIGateway.GridGroups.GetGroup(cubegrid, GridLinkTypeEnum.Logical);
+        }
+
+        public int SetPBScripts(string scriptName, string PBTag, IMyCubeGrid grid)
+        {
+            int scriptsChangedCount = 0;
+
+            List<IMySlimBlock> pbs = new List<IMySlimBlock>();
+            grid.GetBlocks(pbs);
+
+            foreach (var pb in pbs)
+            {
+                var myProgrammable = pb.FatBlock as IMyProgrammableBlock;
+
+                if (myProgrammable == null || !myProgrammable.CustomName.Contains(PBTag))
+                    continue;
+
+
+                string program = "";
+                try
+                {
+                    program = File.ReadAllText(Path.Combine(new string[]
+                    {
+                    MyFileSystem.UserDataPath,
+                    "IngameScripts",
+                    "local",
+                    scriptName,
+                    "script.cs"
+                    }));
+                } catch (FileNotFoundException e)
+                {
+                    try
+                    {
+                        program = File.ReadAllText(Path.Combine(new string[]
+                        {
+                            MyFileSystem.UserDataPath,
+                            "IngameScripts",
+                            "local",
+                            scriptName,
+                            "Script.cs"
+                        }));
+                    } catch (FileNotFoundException f)
+                    {
+                        continue;
+                    }
+                } catch (DirectoryNotFoundException e)
+                {
+                    continue;
+                }
+
+                if (program == "")
+                    continue;
+
+                myProgrammable.ProgramData = program;
+                scriptsChangedCount++;
+            }
+
+            return scriptsChangedCount;
         }
         #endregion
     }
