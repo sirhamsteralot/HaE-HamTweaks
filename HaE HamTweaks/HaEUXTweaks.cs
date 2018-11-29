@@ -98,12 +98,28 @@ namespace HaE_HamTweaks
         {
             int scriptsChangedCount = 0;
 
-            List<IMySlimBlock> pbs = new List<IMySlimBlock>();
-            grid.GetBlocks(pbs);
+            List<IMySlimBlock> blocks = new List<IMySlimBlock>();
+            List<IMySlimBlock> temp = new List<IMySlimBlock>();
+            grid.GetBlocks(blocks);
 
-            foreach (var pb in pbs)
+
+            for (int i = 0; i < blocks.Count; i++)
             {
-                var myProgrammable = pb.FatBlock as IMyProgrammableBlock;
+                var projector = blocks[i] as IMyProjector;
+                if (projector != null)
+                {
+                    
+                    if (projector.ProjectedGrid != null)
+                    {
+                        temp.Clear();
+                        projector.CubeGrid.GetBlocks(temp);
+                        blocks.AddRange(temp);
+                    }
+                    
+                    continue;
+                }
+
+                var myProgrammable = blocks[i].FatBlock as IMyProgrammableBlock;
 
                 if (myProgrammable == null || !myProgrammable.CustomName.Contains(PBTag))
                     continue;
