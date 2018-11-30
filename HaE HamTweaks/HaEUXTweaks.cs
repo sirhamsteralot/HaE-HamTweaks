@@ -179,6 +179,27 @@ namespace HaE_HamTweaks
 
             ((IMyProjector)projector).SetProjectedGrid(grid);
         }
+
+        public int SetProjectorProjections(string blueprintName, string ProjectorTag, IMyCubeGrid grid)
+        {
+            int projectionsChangedCount = 0;
+
+            List<IMySlimBlock> blocks = new List<IMySlimBlock>();
+            List<IMySlimBlock> temp = new List<IMySlimBlock>();
+            grid.GetBlocks(blocks);
+
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                var projector = blocks[i].FatBlock as IMyProjector;
+
+                if (projector == null || !projector.CustomName.Contains(ProjectorTag))
+                    continue;
+
+                projector.LoadBlueprint(blueprintName);
+            }
+
+            return projectionsChangedCount;
+        }
         #endregion
     }
 }
