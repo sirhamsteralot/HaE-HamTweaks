@@ -77,17 +77,17 @@ namespace HaE_HamTweaks
                         continue;
                     }
                 }
+            }
 
-                foreach (var projector in projectors)
-                {
-                    if (projector.ProjectedGrid != null)
-                        grids.Add(projector.ProjectedGrid);
-                }
+            foreach (var projector in projectors)
+            {
+                if (projector.ProjectedGrid != null)
+                    grids.Add(projector.ProjectedGrid);
+            }
 
-                foreach (var grid in grids)
-                {
-                    changed += SetProjectorProjections(blueprintName, projectortag, grid);
-                }
+            foreach (var grid in grids)
+            {
+                changed += SetProjectorProjections(blueprintName, projectortag, grid);
             }
 
             return $"Success!, on {grids.Count} grids: {changed} projections changed.";
