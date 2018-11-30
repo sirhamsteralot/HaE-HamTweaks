@@ -26,6 +26,7 @@ using Sandbox.Game.Entities.Cube;
 using Sandbox.Game.Entities.Blocks;
 using Sandbox.Engine;
 using Sandbox.Engine.Utils;
+using HaEPluginCore.Console;
 
 namespace HaE_HamTweaks
 {
@@ -102,23 +103,8 @@ namespace HaE_HamTweaks
             List<IMySlimBlock> temp = new List<IMySlimBlock>();
             grid.GetBlocks(blocks);
 
-
             for (int i = 0; i < blocks.Count; i++)
             {
-                var projector = blocks[i] as IMyProjector;
-                if (projector != null)
-                {
-                    
-                    if (projector.ProjectedGrid != null)
-                    {
-                        temp.Clear();
-                        projector.CubeGrid.GetBlocks(temp);
-                        blocks.AddRange(temp);
-                    }
-                    
-                    continue;
-                }
-
                 var myProgrammable = blocks[i].FatBlock as IMyProgrammableBlock;
 
                 if (myProgrammable == null || !myProgrammable.CustomName.Contains(PBTag))

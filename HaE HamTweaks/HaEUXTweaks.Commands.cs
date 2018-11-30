@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VRage;
+using VRage.ModAPI;
 using VRage.Game;
 using VRage.Game.ModAPI;
 using Sandbox;
+using Sandbox.ModAPI;
 using Sandbox.Engine;
 using Sandbox.Engine.Utils;
 using Sandbox.Game;
@@ -56,6 +58,31 @@ namespace HaE_HamTweaks
                 return $"Could not find cubegrid with name {maingridName}";
 
             int changed = 0;
+
+
+            List<IMyCubeGrid> projectedGrids = new List<IMyCubeGrid>();
+            List<IMySlimBlock> blocks = new List<IMySlimBlock>();
+            for(int i = 0; i < grids.Count; i++)
+            {
+                blocks.Clear();
+                grids[i].GetBlocks(blocks);
+
+                for (int j = 0; j < grids.Count; j++)
+                {
+                    var projector = blocks[j].FatBlock as IMyProjector;
+                    if (projector != null)
+                    {
+                        if (projector.ProjectedGrid != null)
+                        {
+                            projectedGrids.Add(projector.ProjectedGrid);
+                        }
+
+                        continue;
+                    }
+                }
+            }
+
+            grids.AddRange(projectedGrids);
 
             foreach(var grid in grids)
             {
