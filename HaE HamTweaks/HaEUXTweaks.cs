@@ -170,12 +170,14 @@ namespace HaE_HamTweaks
         private FieldInfo originalBuilder = typeof(MyProjectorBase).GetField("m_originalGridBuilder", BindingFlags.Instance | BindingFlags.NonPublic);
         public void SetProjectedGrid(MyObjectBuilder_CubeGrid grid, MyProjectorBase projector)
         {
-            if (grid == null)
-                return;
+            //if (grid == null)
+            //    return;
 
-            MyEntities.RemapObjectBuilder(grid);
-            originalBuilder.SetValue(projector, grid);
-            sendNewBlueprint.Invoke(projector, new object[] { grid });
+            //MyEntities.RemapObjectBuilder(grid);
+            //originalBuilder.SetValue(projector, grid);
+            //sendNewBlueprint.Invoke(projector, new object[] { grid });
+
+            ((IMyProjector)projector).SetProjectedGrid(grid);
         }
         #endregion
     }
