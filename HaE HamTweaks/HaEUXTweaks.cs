@@ -17,6 +17,7 @@ using VRage.Game.ObjectBuilders.Definitions.SessionComponents;
 using Sandbox;
 using Sandbox.ModAPI;
 using Sandbox.Game;
+using Sandbox.Game.GUI;
 using Sandbox.Game.Gui;
 using Sandbox.Game.World;
 using Sandbox.Game.SessionComponents;
@@ -195,7 +196,10 @@ namespace HaE_HamTweaks
                 if (projector == null || !projector.CustomName.Contains(ProjectorTag))
                     continue;
 
-                projector.LoadBlueprint(blueprintName);
+                if (projector.LoadBlueprint(Path.Combine(MyBlueprintUtils.BLUEPRINT_FOLDER_LOCAL, blueprintName, "bp.sbc")))
+                    projectionsChangedCount++;
+                else
+                    HaEConsole.WriteLine($"ERR: {projector.CustomName} COULDNT UPDATE PROJECTION!, check blueprint name!");
             }
 
             return projectionsChangedCount;

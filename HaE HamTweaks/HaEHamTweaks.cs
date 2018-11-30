@@ -12,7 +12,7 @@ namespace HaE_HamTweaks
 {
     public class HaEHamTweaks : IPlugin
     {
-        public const int MinBasePluginVersion = 1040;
+        public const int MinBasePluginVersion = 1050;
 
         public static HaETweakConfiguration config;
         public static HaEUITweaks uiTweaks;
