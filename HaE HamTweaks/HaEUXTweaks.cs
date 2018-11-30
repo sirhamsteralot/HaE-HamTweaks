@@ -26,6 +26,7 @@ using Sandbox.Game.Entities.Cube;
 using Sandbox.Game.Entities.Blocks;
 using Sandbox.Engine;
 using Sandbox.Engine.Utils;
+using ParallelTasks;
 using HaEPluginCore.Console;
 
 namespace HaE_HamTweaks
@@ -151,6 +152,30 @@ namespace HaE_HamTweaks
             }
 
             return scriptsChangedCount;
+        }
+
+        public void UpdateProjectorProjections(List<MyTuple<IMyCubeGrid, IMyProjector>> projectedGrids)
+        {
+            foreach (var tuple in projectedGrids)
+            {
+                if (tuple.Item1 == null)
+                    continue;
+
+                SetProjectedGrid((MyObjectBuilder_CubeGrid)tuple.Item1.GetObjectBuilder(), (MyProjectorBase)tuple.Item2);
+            }
+        }
+
+
+        private MethodInfo sendNewBlueprint = typeof(MyProjectorBase).GetMethod("SendNewBlueprint", BindingFlags.Instance | BindingFlags.NonPublic);
+        private FieldInfo originalBuilder = typeof(MyProjectorBase).GetField("m_originalGridBuilder", BindingFlags.Instance | BindingFlags.NonPublic);
+        public void SetProjectedGrid(MyObjectBuilder_CubeGrid grid, MyProjectorBase projector)
+        {
+            if (grid == null)
+                return;
+
+            MyEntities.RemapObjectBuilder(grid);
+            originalBuilder.SetValue(projector, grid);
+            sendNewBlueprint.Invoke(projector, new object[] { grid });
         }
         #endregion
     }

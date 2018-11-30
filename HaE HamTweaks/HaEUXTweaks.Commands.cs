@@ -13,6 +13,7 @@ using Sandbox.Engine;
 using Sandbox.Engine.Utils;
 using Sandbox.Game;
 using Sandbox.Game.Entities;
+using Sandbox.Game.Entities.Blocks;
 using HaEPluginCore;
 using HaEPluginCore.Console;
 
@@ -59,22 +60,21 @@ namespace HaE_HamTweaks
 
             int changed = 0;
 
-
-            List<IMyCubeGrid> projectedGrids = new List<IMyCubeGrid>();
+            List<MyTuple<IMyCubeGrid, IMyProjector>> projectorGridCombos = new List<MyTuple<IMyCubeGrid, IMyProjector>>();
             List<IMySlimBlock> blocks = new List<IMySlimBlock>();
             for(int i = 0; i < grids.Count; i++)
             {
                 blocks.Clear();
                 grids[i].GetBlocks(blocks);
 
-                for (int j = 0; j < grids.Count; j++)
+                for (int j = 0; j < blocks.Count; j++)
                 {
                     var projector = blocks[j].FatBlock as IMyProjector;
                     if (projector != null)
                     {
                         if (projector.ProjectedGrid != null)
                         {
-                            projectedGrids.Add(projector.ProjectedGrid);
+                            projectorGridCombos.Add(new MyTuple<IMyCubeGrid, IMyProjector>(projector.ProjectedGrid, projector));
                         }
 
                         continue;
@@ -82,12 +82,17 @@ namespace HaE_HamTweaks
                 }
             }
 
-            grids.AddRange(projectedGrids);
+            foreach (var tuple in projectorGridCombos)
+            {
+                grids.Add(tuple.Item1);
+            }
 
             foreach(var grid in grids)
             {
                 changed += SetPBScripts(scriptName, pbNameTag, grid);
             }
+
+            UpdateProjectorProjections(projectorGridCombos);
 
             return $"Success!, on {grids.Count} grids: {changed} scripts changed."; 
         }
