@@ -39,6 +39,8 @@ namespace HaE_HamTweaks
             SetMaxFPS(HaEHamTweaks.config.maxFPS);
 
             MySession.OnLoading += MySession_OnLoading;
+
+            ApplyPatch();
         }
 
         private void MySession_OnLoading()

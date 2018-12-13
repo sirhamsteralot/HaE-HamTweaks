@@ -49,6 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.1.2.0.1\lib\net45\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="HaEPluginCore">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Plugins\HaEPluginCore.dll</HintPath>
     </Reference>
@@ -143,12 +146,16 @@
     <Compile Include="HaEHamTweaks.cs" />
     <Compile Include="HaERenderTweaks.Commands.cs" />
     <Compile Include="HaERenderTweaks.cs" />
+    <Compile Include="HaERenderTweaks.Patches.cs" />
     <Compile Include="HaETweakConfiguration.cs" />
     <Compile Include="HaEUITweaks.Commands.cs" />
     <Compile Include="HaEUITweaks.cs" />
     <Compile Include="HaEUXTweaks.Commands.cs" />
     <Compile Include="HaEUXTweaks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
