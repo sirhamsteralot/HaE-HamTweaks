@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}</ProjectGuid>
+    <ProjectGuid>{F1F18D15-0C57-494C-AACD-2E91FCEA1870}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HaE_HamTweaks</RootNamespace>
-    <AssemblyName>HaEHamTweaks</AssemblyName>
+    <RootNamespace>HaEHamTweaks.Patching</RootNamespace>
+    <AssemblyName>HaEHamTweaks.Patching</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -30,24 +30,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lib.Harmony.1.2.0.1\lib\net45\0Harmony.dll</HintPath>
@@ -57,6 +39,9 @@
     </Reference>
     <Reference Include="HaEPluginCore.Console">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Plugins\HaEPluginCore.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="IngameScript">
+      <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\IngameScript.dll</HintPath>
     </Reference>
     <Reference Include="Sandbox.Common">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Common.dll</HintPath>
@@ -143,24 +128,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HaEHamTweaks.cs" />
-    <Compile Include="HaERenderTweaks.Commands.cs" />
-    <Compile Include="HaERenderTweaks.cs" />
-    <Compile Include="HaETweakConfiguration.cs" />
-    <Compile Include="HaEUITweaks.Commands.cs" />
-    <Compile Include="HaEUITweaks.cs" />
-    <Compile Include="HaEUXTweaks.Commands.cs" />
-    <Compile Include="HaEUXTweaks.cs" />
+    <Compile Include="RendertweakPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HaEHamTweaks.Patching\HaEHamTweaks.Patching.csproj">
-      <Project>{f1f18d15-0c57-494c-aacd-2e91fcea1870}</Project>
-      <Name>HaEHamTweaks.Patching</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

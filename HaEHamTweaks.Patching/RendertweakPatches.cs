@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Reflection;
 using System.Reflection.Emit;
 using Harmony;
 using VRageRender;
 using HaEPluginCore.Console;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks.Patching
 {
-    public partial class HaERenderTweaks
+    public class RendertweakPatches
     {
         private static Type myBillboardRenderer = typeof(MyAtmosphereRenderer).Assembly.GetType("VRageRender.MyBillboardRenderer");
 
@@ -23,14 +28,17 @@ namespace HaE_HamTweaks
 
             foreach (var method in methods)
             {
-                harmony.Patch(method, null, null, new HarmonyMethod(typeof(Patch).GetMethod("BillboardTranspiler", BindingFlags.Static | BindingFlags.NonPublic)));
+                if (method.GetMethodBody() == null)
+                    continue;
+
+                harmony.Patch(method, null, null, new HarmonyMethod(typeof(Patch).GetMethod("BillboardTranspiler", BindingFlags.Static | BindingFlags.Public)));
                 HaEConsole.WriteLine($"Patched method: {method.Name}");
             }
         }
-        
-        private class Patch
+
+        public class Patch
         {
-            private static IEnumerable<CodeInstruction> BillboardTranspiler(IEnumerable<CodeInstruction> ip)
+            public static IEnumerable<CodeInstruction> BillboardTranspiler(IEnumerable<CodeInstruction> ip)
             {
                 foreach (var i in ip)
                 {
@@ -46,6 +54,5 @@ namespace HaE_HamTweaks
                 }
             }
         }
-
     }
 }

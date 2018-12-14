@@ -19,6 +19,7 @@ using VRage.Plugins;
 using VRageRender;
 using VRageRender.ExternalApp;
 using HaEPluginCore;
+using HaEHamTweaks.Patching;
 
 namespace HaE_HamTweaks
 {
@@ -40,7 +41,7 @@ namespace HaE_HamTweaks
 
             MySession.OnLoading += MySession_OnLoading;
 
-            ApplyPatch();
+            RendertweakPatches.ApplyPatch();
         }
 
         private void MySession_OnLoading()
