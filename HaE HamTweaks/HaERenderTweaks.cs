@@ -23,6 +23,7 @@ using VRage.FileSystem;
 using VRageRender;
 using VRageRender.ExternalApp;
 using HaEPluginCore;
+using HaEPluginCore.Console;
 using HaEHamTweaks.Patching;
 
 namespace HaE_HamTweaks
@@ -76,7 +77,7 @@ namespace HaE_HamTweaks
             string input = reader.ReadToEnd();
             reader.Close();
 
-            if (!input.Contains($"#define MAX_TILE_LIGHTS {RendertweakPatches.pointlightCount}"))
+            if (input.Contains($"#define MAX_TILE_LIGHTS 256"))
             {
                 using (StreamWriter writer = new StreamWriter(filePath, false))
                 {
@@ -86,19 +87,29 @@ namespace HaE_HamTweaks
                     }
                     writer.Close();
                 }
-
-                Directory.Delete(MyFileSystem.UserDataPath + "\\ShaderCache2", true);
+                
+                try
+                {
+                    Directory.Delete(MyFileSystem.UserDataPath + "\\ShaderCache2", true);
+                } catch(DirectoryNotFoundException e)
+                {
+                    HaEConsole.WriteLine("Could not find shadercache!");
+                }
+                
 
                 MyGuiSandbox.AddScreen(MyGuiSandbox.CreateMessageBox(MyMessageBoxStyleEnum.Info, MyMessageBoxButtonsType.YES_NO,
+                    new StringBuilder("T_Please restart SE for lighting change to take effect!"),
                     new StringBuilder("HaE HamTweaks:"),
-                    new StringBuilder("Please restart SE for lighting change to take effect!"),
                     null, null, null, null, new Action<MyGuiScreenMessageBox.ResultEnum>(ExitCallback)));
             }
         }
         public void ExitCallback(MyGuiScreenMessageBox.ResultEnum callbackReturn)
         {
-            MyScreenManager.CloseAllScreensNowExcept(null);
-            MySandboxGame.ExitThreadSafe();
+            if (callbackReturn == MyGuiScreenMessageBox.ResultEnum.YES)
+            {
+                MyScreenManager.CloseAllScreensNowExcept(null);
+                MySandboxGame.ExitThreadSafe();
+            }
         }
 
         public void SetMaxFPS(float maxFrameRate)

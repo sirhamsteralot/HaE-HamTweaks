@@ -23,7 +23,6 @@ namespace HaEHamTweaks.Patching
         private static Type myLightsRendering = typeof(MyAtmosphereRenderer).Assembly.GetType("VRage.Render11.LightingStage.MyLightsRendering");
         private static Type myRender11 = typeof(MyAtmosphereRenderer).Assembly.GetType("VRageRender.MyRender11");
 
-
         private static Type MyPointlightConstants = typeof(MyAtmosphereRenderer).Assembly.GetType("VRage.Render11.LightingStage.MyPointlightConstants");
 
         public static int pointlightCount = 1024;
@@ -40,6 +39,7 @@ namespace HaEHamTweaks.Patching
         {
             HaEConsole.WriteLine($"Patching MyLightsRendering...");
             MethodInfo[] methods = myLightsRendering.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+            int patchCount = 0;
 
             foreach (var method in methods)
             {
@@ -47,8 +47,9 @@ namespace HaEHamTweaks.Patching
                     continue;
 
                 harmony.Patch(method, null, null, new HarmonyMethod(typeof(Patch).GetMethod("LightsRenderingTranspiler", BindingFlags.Static | BindingFlags.Public)));
-                HaEConsole.WriteLine($"Patched method: {method.Name}");
+                patchCount++;
             }
+            HaEConsole.WriteLine($"Patched {patchCount} methods.");
 
             object pointlightscullbuffer = Array.CreateInstance(MyPointlightConstants, pointlightCount);
 
