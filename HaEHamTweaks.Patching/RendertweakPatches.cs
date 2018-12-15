@@ -13,6 +13,7 @@ using System.Reflection.Emit;
 using Harmony;
 using VRageRender;
 using HaEPluginCore.Console;
+using VRageMath;
 
 namespace HaEHamTweaks.Patching
 {
@@ -20,17 +21,19 @@ namespace HaEHamTweaks.Patching
     {
         private static Type myBillboardRenderer = typeof(MyAtmosphereRenderer).Assembly.GetType("VRageRender.MyBillboardRenderer");
         private static Type myLightsRendering = typeof(MyAtmosphereRenderer).Assembly.GetType("VRage.Render11.LightingStage.MyLightsRendering");
+        private static Type myRender11 = typeof(MyAtmosphereRenderer).Assembly.GetType("VRageRender.MyRender11");
+
 
         private static Type MyPointlightConstants = typeof(MyAtmosphereRenderer).Assembly.GetType("VRage.Render11.LightingStage.MyPointlightConstants");
 
-        private const int pointlightCount = 1024;
-        private const int spotlightCount = 256;
+        public static int pointlightCount = 1024;
+        public static int spotlightCount = 128;
 
         public static void ApplyPatch()
         {
             var harmony = HarmonyInstance.Create("com.HaE.HamTweaks.RenderTweaks");
             BillboardRendererPatch(harmony);
-            /// MyLightsRenderingPatch(harmony); Im gonna leave this one up to eq
+            MyLightsRenderingPatch(harmony);
         }
 
         public static void MyLightsRenderingPatch(HarmonyInstance harmony)
@@ -51,6 +54,9 @@ namespace HaEHamTweaks.Patching
 
             myLightsRendering.GetField("m_pointlightsCullBuffer", BindingFlags.NonPublic | BindingFlags.Static).SetValue(null, pointlightscullbuffer);
             myLightsRendering.GetMethod("Init", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+
+            Vector2I res = (Vector2I)myRender11.GetField("m_resolution", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+            myLightsRendering.GetMethod("Resize", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] {res.X , res.Y});
         }
 
         public static void BillboardRendererPatch(HarmonyInstance harmony)

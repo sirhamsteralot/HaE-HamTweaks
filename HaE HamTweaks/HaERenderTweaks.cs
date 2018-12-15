@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.IO;
 using Sandbox;
 using Sandbox.Definitions;
 using Sandbox.Game;
@@ -11,11 +12,14 @@ using Sandbox.Game.Gui;
 using Sandbox.Game.World;
 using Sandbox.Engine;
 using Sandbox.Engine.Utils;
+using Sandbox.Graphics.GUI;
 using VRage;
 using VRage.Game;
 using VRage.Game.ModAPI;
 using VRage.Library.Utils;
 using VRage.Plugins;
+using VRage.Filesystem;
+using VRage.FileSystem;
 using VRageRender;
 using VRageRender.ExternalApp;
 using HaEPluginCore;
@@ -41,7 +45,7 @@ namespace HaE_HamTweaks
 
             MySession.OnLoading += MySession_OnLoading;
 
-            RendertweakPatches.ApplyPatch();
+            ApplyLightingPatch();
         }
 
         private void MySession_OnLoading()
@@ -63,6 +67,40 @@ namespace HaE_HamTweaks
         }
 
         #region methods
+        public void ApplyLightingPatch()
+        {
+            RendertweakPatches.ApplyPatch();
+
+            string filePath = MyFileSystem.ContentPath + "\\Shaders\\Lighting\\LightDefs.hlsli";
+            StreamReader reader = new StreamReader(filePath);
+            string input = reader.ReadToEnd();
+            reader.Close();
+
+            if (!input.Contains($"#define MAX_TILE_LIGHTS {RendertweakPatches.pointlightCount}"))
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, false))
+                {
+                    {
+                        string output = input.Replace("#define MAX_TILE_LIGHTS 256", $"#define MAX_TILE_LIGHTS {RendertweakPatches.pointlightCount}");
+                        writer.Write(output);
+                    }
+                    writer.Close();
+                }
+
+                Directory.Delete(MyFileSystem.UserDataPath + "\\ShaderCache2", true);
+
+                MyGuiSandbox.AddScreen(MyGuiSandbox.CreateMessageBox(MyMessageBoxStyleEnum.Info, MyMessageBoxButtonsType.YES_NO,
+                    new StringBuilder("HaE HamTweaks:"),
+                    new StringBuilder("Please restart SE for lighting change to take effect!"),
+                    null, null, null, null, new Action<MyGuiScreenMessageBox.ResultEnum>(ExitCallback)));
+            }
+        }
+        public void ExitCallback(MyGuiScreenMessageBox.ResultEnum callbackReturn)
+        {
+            MyScreenManager.CloseAllScreensNowExcept(null);
+            MySandboxGame.ExitThreadSafe();
+        }
+
         public void SetMaxFPS(float maxFrameRate)
         {
             MyRenderThread renderThread = MySandboxGame.Static.GameRenderComponent.RenderThread;
@@ -89,6 +127,21 @@ namespace HaE_HamTweaks
         public void SetBlockEdges(bool edges)
         {
             MyFakes.ENABLE_EDGES = edges;
+        }
+
+        public static bool IsFileReady(string filename)
+        {
+            // If the file can be opened for exclusive access it means that the file
+            // is no longer locked by another process.
+            try
+            {
+                using (FileStream inputStream = File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.None))
+                    return inputStream.Length > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         #endregion
     }
