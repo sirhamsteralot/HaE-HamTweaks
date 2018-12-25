@@ -81,13 +81,5 @@ namespace HaEHamTweaks.Managers
                 File.Copy(fullTexturePath, toReplacePath, true);
             }
         }
-
-        public void SwapVanillaTexture(string texture)
-        {
-            string backupVanillaPath = HaEConstants.pluginFolder + HamTweakConstants.VanillaTextureFolder + texture;
-            string toReplacePath = MyFileSystem.ContentPath + "\\Textures\\" + texture;
-
-            File.Copy(backupVanillaPath, toReplacePath);
-        }
     }
 }
