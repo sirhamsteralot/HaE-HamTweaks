@@ -7,6 +7,7 @@ using System.IO;
 using System.Xml.Serialization;
 using VRage.Plugins;
 using HaEPluginCore;
+using HaEHamTweaks.Managers;
 
 namespace HaE_HamTweaks
 {
@@ -19,6 +20,8 @@ namespace HaE_HamTweaks
         public static HaEUXTweaks uxTweaks;
         public static HaERenderTweaks renderTweaks;
 
+        public static TexturePackManager textureManager;
+
         public void Init(object gameInstance)
         {
             if (HaEConstants.versionNumber < MinBasePluginVersion)
@@ -30,6 +33,8 @@ namespace HaE_HamTweaks
             uiTweaks = new HaEUITweaks();
             uxTweaks = new HaEUXTweaks();
             renderTweaks = new HaERenderTweaks();
+
+            textureManager = new TexturePackManager();
         }
 
         public void Update()

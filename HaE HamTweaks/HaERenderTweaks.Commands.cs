@@ -18,7 +18,6 @@ namespace HaE_HamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetBloomMultiplier", "Sets Bloom multiplier, Usage: SetBloomMultiplier {multiplier}", SetBloomMultiplier));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetChromaticFactor", "Sets Chromatic factor, Usage: SetChromaticFactor {factor}", SetChromaticFactor));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetBlockEdges", "Sets Block Edges, Usage: SetBlockEdges {true/false}", SetBlockEdges));
-
         }
 
         public string SetBlockEdges(List<string> args)
