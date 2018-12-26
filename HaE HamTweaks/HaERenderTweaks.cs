@@ -98,7 +98,7 @@ namespace HaE_HamTweaks
                 
 
                 MyGuiSandbox.AddScreen(MyGuiSandbox.CreateMessageBox(MyMessageBoxStyleEnum.Info, MyMessageBoxButtonsType.YES_NO,
-                    new StringBuilder("T_Please restart SE for lighting change to take effect!"),
+                    new StringBuilder("Please restart SE for lighting change to take effect!"),
                     new StringBuilder("HaE HamTweaks:"),
                     null, null, null, null, new Action<MyGuiScreenMessageBox.ResultEnum>(ExitCallback)));
             }
