@@ -16,6 +16,7 @@ using Sandbox.Game.Entities;
 using Sandbox.Game.Entities.Blocks;
 using HaEPluginCore;
 using HaEPluginCore.Console;
+using VRage.Input;
 
 namespace HaE_HamTweaks
 {
@@ -27,11 +28,29 @@ namespace HaE_HamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("OverridePlacementLimits", "Overrides clipboard placement limits, Usage: OverridePlacementLimits {true/false}", OverridePlacementLimits));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetProgrammableBlockScripts", "Sets all PB scripts on a grid to a certain script, Usage: SetProgrammableBlockScripts {gridName} {pbNameTag} {scriptName}", SetProgrammableBlockScripts));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetProjectorProjections", "Sets all Projector projections on a grid to a certain blueprint, Usage: SetProjectorProjections {gridName} {projectorTag} {blueprintName}", SetProjectorProjections));
-
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetSensitivity", "Sets mouse sensitivity, Usage: SetSensitivity {sensitivity float}", SetSensitivity));
         }
 
 
         #region commands
+        public string SetSensitivity(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Not Enough args!";
+
+            float newSensitivity;
+            if (!float.TryParse(args[0], out newSensitivity))
+                return $"Could not parse ${args[0]} into float!";
+
+            MyDirectXInput input = (MyDirectXInput)MyAPIGateway.Input;
+            if (input == null)
+                throw new Exception("Input null!");
+
+            input.SetMouseSensitivity(newSensitivity);
+
+            return $"Set mouse sensitivity: {newSensitivity}";
+        }
+
         public string OverridePlacementLimits(List<string> args)
         {
             if (args.Count < 1)
