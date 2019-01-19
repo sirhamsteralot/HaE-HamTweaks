@@ -42,11 +42,7 @@ namespace HaE_HamTweaks
             if (!float.TryParse(args[0], out newSensitivity))
                 return $"Could not parse ${args[0]} into float!";
 
-            MyDirectXInput input = (MyDirectXInput)MyAPIGateway.Input;
-            if (input == null)
-                throw new Exception("Input null!");
-
-            input.SetMouseSensitivity(newSensitivity);
+            MyInput.Static.SetMouseSensitivity(newSensitivity);
 
             return $"Set mouse sensitivity: {newSensitivity}";
         }
