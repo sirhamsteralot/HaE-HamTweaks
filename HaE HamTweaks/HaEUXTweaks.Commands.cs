@@ -43,6 +43,7 @@ namespace HaE_HamTweaks
                 return $"Could not parse ${args[0]} into float!";
 
             MyInput.Static.SetMouseSensitivity(newSensitivity);
+            MySandboxGame.Config.Save();
 
             return $"Set mouse sensitivity: {newSensitivity}";
         }
