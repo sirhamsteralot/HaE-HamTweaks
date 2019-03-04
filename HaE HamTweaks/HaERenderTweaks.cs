@@ -71,6 +71,7 @@ namespace HaE_HamTweaks
         public void ApplyLightingPatch()
         {
             RendertweakPatches.ApplyPatch();
+            UXTweakPatches.ApplyPatch();
 
             string filePath = MyFileSystem.ContentPath + "\\Shaders\\Lighting\\LightDefs.hlsli";
             StreamReader reader = new StreamReader(filePath);
