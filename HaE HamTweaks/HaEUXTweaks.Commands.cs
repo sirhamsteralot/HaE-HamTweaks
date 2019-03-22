@@ -18,6 +18,7 @@ using HaEPluginCore;
 using HaEPluginCore.Console;
 using HaEHamTweaks.Patching;
 using VRage.Input;
+using Sandbox.Game.World;
 
 namespace HaE_HamTweaks
 {
@@ -31,10 +32,41 @@ namespace HaE_HamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetProjectorProjections", "Sets all Projector projections on a grid to a certain blueprint, Usage: SetProjectorProjections {gridName} {projectorTag} {blueprintName}", SetProjectorProjections));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetSensitivity", "Sets mouse sensitivity, Usage: SetSensitivity {sensitivity float}", SetSensitivity));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetPaintOverride", "Sets paint allow override, Usage: SetSensitivity {bool}", SetPaintOverride));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("GetPlayerInfo", "Gets info for a player by their name, Usage: GetPlayerInfo {name}", GetPlayerInfo));
+
         }
 
 
         #region commands
+        public string GetPlayerInfo(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Not Enough args!";
+
+            try
+            {
+                MyPlayer player = null;
+                if (!HaETweakUtils.TryGetPlayerByName(ref player, args[0]))
+                    return $"No player found with name: {args[0]}";
+
+
+                StringBuilder sb = new StringBuilder();
+
+                sb.Append("Playerinfo for player: ").AppendLine(player.DisplayName ?? "");
+                sb.Append("SteamID:     ").AppendLine(player.Id.SteamId.ToString());
+                sb.Append("EntityID:    ").AppendLine(player.Character?.EntityId.ToString() ?? "");
+                sb.Append("IdentityID:  ").AppendLine(player.Identity?.IdentityId.ToString() ?? "");
+                sb.Append("SerialID:    ").AppendLine(player.Id.SerialId.ToString());
+
+                return sb.ToString();
+            } catch (Exception e)
+            {
+                return "Exception";
+            }
+
+
+        }
+
         public string SetPaintOverride(List<string> args)
         {
             if (args.Count < 1)

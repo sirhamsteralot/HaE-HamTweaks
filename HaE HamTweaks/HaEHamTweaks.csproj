@@ -147,6 +147,7 @@
     <Compile Include="HaERenderTweaks.Commands.cs" />
     <Compile Include="HaERenderTweaks.cs" />
     <Compile Include="HaETweakConfiguration.cs" />
+    <Compile Include="HaETweakUtils.cs" />
     <Compile Include="HaEUITweaks.Commands.cs" />
     <Compile Include="HaEUITweaks.cs" />
     <Compile Include="HaEUXTweaks.Commands.cs" />
