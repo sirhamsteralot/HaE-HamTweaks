@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
+using SpaceEngineers.Game.GUI;
 
 namespace HaE_HamTweaks
 {
@@ -24,6 +26,11 @@ namespace HaE_HamTweaks
         }
 
         public void OnDispose()
+        {
+
+        }
+
+        public void SetBanners()
         {
 
         }

@@ -19,6 +19,7 @@ namespace HaE_HamTweaks
         public float bloomMultiplier = 0.0025f;
         public float chromaticFactor = 0.025f;
         public bool enableBlockEdges = true;
+        public bool mainMenuBanners = true;
 
         public HaETweakConfiguration()
         {

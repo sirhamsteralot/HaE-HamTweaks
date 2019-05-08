@@ -16,12 +16,13 @@ using Sandbox.Game.Entities;
 using Sandbox.Engine.Utils;
 using VRage.Game.Entity;
 using Sandbox.Game.Multiplayer;
+using HaEHamTweaks;
 
 namespace HaEHamTweaks.Patching
 {
     public class UXTweakPatches
     {
-        #region tempOverrides
+        #region Properties
         public static bool AllowEveryonePaintOverride { get; set; } = false;
         #endregion
 
@@ -52,6 +53,7 @@ namespace HaEHamTweaks.Patching
 
             HaEConsole.WriteLine($"Patched MyCubeGrid.ColorGridOrBlockRequestValidation");
         }
+
 
         public class Patch
         {

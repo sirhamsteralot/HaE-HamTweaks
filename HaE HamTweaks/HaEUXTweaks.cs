@@ -17,6 +17,7 @@ using VRage.Game.ObjectBuilders.Definitions.SessionComponents;
 using Sandbox;
 using Sandbox.ModAPI;
 using Sandbox.Game;
+using Sandbox.Game.Multiplayer;
 using Sandbox.Game.GUI;
 using Sandbox.Game.Gui;
 using Sandbox.Game.World;
@@ -29,12 +30,14 @@ using Sandbox.Engine;
 using Sandbox.Engine.Utils;
 using ParallelTasks;
 using HaEPluginCore.Console;
+using Sandbox.Game.Screens.Helpers;
 
 namespace HaE_HamTweaks
 {
     public partial class HaEUXTweaks
     {
         private MyGridClipboard Clipboard => MyClipboardComponent.Static.Clipboard;
+        List<IMyGps> gpsListCache;
 
         public HaEUXTweaks()
         {
@@ -63,9 +66,41 @@ namespace HaE_HamTweaks
         }
 
         #region methods
-        public void SetSnapModeOverride(SnapMode mode)
+        public int SetGPSOverride(string tag, bool setting, TagFilter filter)
         {
-            throw new NotImplementedException();
+            int amountChanged = 0;
+
+            if (gpsListCache == null)
+                gpsListCache = new List<IMyGps>();
+            var gpsCollection = MySession.Static.Gpss;
+            var myId = MySession.Static.LocalPlayerId;
+            gpsCollection.GetGpsList(myId, gpsListCache);
+
+            foreach(var gps in gpsListCache)
+            {
+                switch(filter)
+                {
+                    case TagFilter.name:
+                        if (gps.Name.Contains(tag))
+                        {
+                            gps.ShowOnHud = setting;
+                            gpsCollection.SendModifyGps(myId, (MyGps)gps);
+                        }
+                        break;
+                    case TagFilter.description:
+                        if (gps.Description.Contains(tag))
+                        {
+                            gps.ShowOnHud = setting;
+                            gpsCollection.SendModifyGps(myId, (MyGps)gps);
+                        }
+                        break;
+                }
+            }
+
+            gpsCollection.updateForHud();
+
+            gpsListCache.Clear();
+            return amountChanged;
         }
 
         
@@ -203,6 +238,13 @@ namespace HaE_HamTweaks
             }
 
             return projectionsChangedCount;
+        }
+        #endregion
+        #region enums
+        public enum TagFilter
+        {
+            name,
+            description
         }
         #endregion
     }

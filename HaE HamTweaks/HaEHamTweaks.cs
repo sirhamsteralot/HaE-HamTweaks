@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using VRage.Plugins;
 using HaEPluginCore;
 using HaEHamTweaks.Managers;
+using HaEHamTweaks.Patching;
 
 namespace HaE_HamTweaks
 {
@@ -35,6 +36,7 @@ namespace HaE_HamTweaks
             renderTweaks = new HaERenderTweaks();
 
             textureManager = new TexturePackManager();
+
         }
 
         public void Update()

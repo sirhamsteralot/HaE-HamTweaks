@@ -33,11 +33,40 @@ namespace HaE_HamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetSensitivity", "Sets mouse sensitivity, Usage: SetSensitivity {sensitivity float}", SetSensitivity));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetPaintOverride", "Sets paint allow override, Usage: SetSensitivity {bool}", SetPaintOverride));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("GetPlayerInfo", "Gets info for a player by their name, Usage: GetPlayerInfo {name}", GetPlayerInfo));
-
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetGPSVisibleName", "Sets the visibility of multiple gps by their name containing a tag, Usage: SetGPSVisibleName {tag} {bool}", SetGPSVisibleName));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetGPSVisibleDescription", "Sets the visibility of multiple gps by their description containing a tag, Usage: SetGPSVisibleDescription {tag} {bool}", SetGPSVisibleDescription));
         }
 
 
         #region commands
+        public string SetGPSVisibleName(List<string> args)
+        {
+            if (args.Count < 2)
+                return "Not Enough args!";
+
+            bool visibleSetting;
+            if (!bool.TryParse(args[1], out visibleSetting))
+                return $"Could not parse ${args[1]} into bool!";
+
+            SetGPSOverride(args[0], visibleSetting, TagFilter.name);
+
+            return $"Set gps containing tag {args[0]} : {args[1]}";
+        }
+
+        public string SetGPSVisibleDescription(List<string> args)
+        {
+            if (args.Count < 2)
+                return "Not Enough args!";
+
+            bool visibleSetting;
+            if (!bool.TryParse(args[1], out visibleSetting))
+                return $"Could not parse ${args[1]} into bool!";
+
+            SetGPSOverride(args[0], visibleSetting, TagFilter.description);
+
+            return $"Set gps containing tag {args[0]} : {args[1]}";
+        }
+
         public string GetPlayerInfo(List<string> args)
         {
             if (args.Count < 1)
