@@ -58,11 +58,15 @@
     <Reference Include="HaEPluginCore.Console">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Plugins\HaEPluginCore.Console.dll</HintPath>
     </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Sandbox.Common">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Common.dll</HintPath>
     </Reference>
     <Reference Include="Sandbox.Game">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Game.XmlSerializers">
+      <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Game.XmlSerializers.dll</HintPath>
     </Reference>
     <Reference Include="Sandbox.Graphics">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\Sandbox.Graphics.dll</HintPath>
@@ -123,8 +127,15 @@
     <Reference Include="VRage.NativeAftermath">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\VRage.NativeAftermath.dll</HintPath>
     </Reference>
+    <Reference Include="VRage.NativeWrapper">
+      <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\VRage.NativeWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="VRage.OpenVRWrapper">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\VRage.OpenVRWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="VRage.Platform.Windows, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\VRage.Platform.Windows.dll</HintPath>
     </Reference>
     <Reference Include="VRage.Render">
       <HintPath>..\..\..\..\Programs\steam\steamapps\common\SpaceEngineers\Bin64\VRage.Render.dll</HintPath>

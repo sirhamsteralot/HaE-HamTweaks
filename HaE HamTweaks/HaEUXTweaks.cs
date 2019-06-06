@@ -31,6 +31,7 @@ using Sandbox.Engine.Utils;
 using ParallelTasks;
 using HaEPluginCore.Console;
 using Sandbox.Game.Screens.Helpers;
+using HaEHamTweaks.Patching;
 
 namespace HaE_HamTweaks
 {
@@ -48,6 +49,7 @@ namespace HaE_HamTweaks
         public void OnInit()
         {
             MySession.OnLoading += MySession_OnLoading;
+            UXTweakPatches.ApplyPatch();
         }
 
         public void OnUpdate()

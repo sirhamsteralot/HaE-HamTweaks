@@ -17,6 +17,10 @@ using Sandbox.Engine.Utils;
 using VRage.Game.Entity;
 using Sandbox.Game.Multiplayer;
 using HaEHamTweaks;
+using Sandbox.Game.Screens;
+using Sandbox.Graphics.GUI;
+using System.Net;
+using VRage.GameServices;
 
 namespace HaEHamTweaks.Patching
 {
@@ -24,7 +28,10 @@ namespace HaEHamTweaks.Patching
     {
         #region Properties
         public static bool AllowEveryonePaintOverride { get; set; } = false;
+        public static Dictionary<IPEndPoint, string> passwords { get; set; }
         #endregion
+
+        private static MyGameServerItem _lastServerConnect;
 
         public static void ApplyPatch()
         {
@@ -65,7 +72,7 @@ namespace HaEHamTweaks.Patching
 
             public static bool PrefixColorGridOrBlockRequestValidation(long player, MyCubeGrid __instance, ref bool __result)
             {
-                if (UXTweakPatches.AllowEveryonePaintOverride)
+                if (AllowEveryonePaintOverride)
                 {
                     __result = true;
                     return false;
@@ -101,6 +108,24 @@ namespace HaEHamTweaks.Patching
                 __result = false;
                 return false;
             }
+
+            public static void SuffixServerResponded(MyGameServerItem serverItem)
+            {
+
+            }
+
+            //public static void SuffixCreateScreen(MyGuiScreenServerPassword __instance)
+            //{
+            //    MyGuiControlTextbox passwordTextBox = (MyGuiControlTextbox)typeof(MyGuiScreenServerPassword)
+            //        .GetField("m_passwordTextbox", BindingFlags.NonPublic | BindingFlags.Instance)
+            //        .GetValue(__instance);
+
+            //    string pass = null;
+            //    if (passwords.TryGetValue( _lastServerConnect.NetAdr, out pass))
+            //    {
+            //        passwordTextBox.Text = pass;
+            //    }
+            //}
         }
     }
 }

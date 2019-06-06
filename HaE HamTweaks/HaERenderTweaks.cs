@@ -70,8 +70,14 @@ namespace HaE_HamTweaks
         #region methods
         public void ApplyLightingPatch()
         {
+            if (!HaEHamTweaks.config.lightingPatch)
+            {
+                HaEConsole.WriteLine("lighting patch disabled.");
+                return;
+            }
+            
+
             RendertweakPatches.ApplyPatch();
-            UXTweakPatches.ApplyPatch();
 
             string filePath = MyFileSystem.ContentPath + "\\Shaders\\Lighting\\LightDefs.hlsli";
             StreamReader reader = new StreamReader(filePath);
