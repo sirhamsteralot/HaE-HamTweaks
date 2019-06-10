@@ -155,14 +155,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HaEHamTweaks.cs" />
-    <Compile Include="HaERenderTweaks.Commands.cs" />
-    <Compile Include="HaERenderTweaks.cs" />
+    <Compile Include="RenderTweaks\HaERenderTweaks.Commands.cs" />
+    <Compile Include="RenderTweaks\HaERenderTweaks.cs" />
     <Compile Include="HaETweakConfiguration.cs" />
     <Compile Include="HaETweakUtils.cs" />
-    <Compile Include="HaEUITweaks.Commands.cs" />
-    <Compile Include="HaEUITweaks.cs" />
-    <Compile Include="HaEUXTweaks.Commands.cs" />
-    <Compile Include="HaEUXTweaks.cs" />
+    <Compile Include="UITweaks\HaEUITweaks.Commands.cs" />
+    <Compile Include="UITweaks\HaEUITweaks.cs" />
+    <Compile Include="UXTweaks\HaEUXTweaks.Commands.cs" />
+    <Compile Include="UXTweaks\HaEUXTweaks.cs" />
     <Compile Include="HamTweakConstants.cs" />
     <Compile Include="Managers\TexturePackCommands.cs" />
     <Compile Include="Managers\TexturePackManager.cs" />
