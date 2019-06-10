@@ -130,6 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProfilerPatches.cs" />
     <Compile Include="RendertweakPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UXTweakPatches.cs" />

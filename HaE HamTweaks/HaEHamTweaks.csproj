@@ -155,6 +155,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HaEHamTweaks.cs" />
+    <Compile Include="Profiling\PBData.cs" />
+    <Compile Include="Profiling\PBProfiling.Commands.cs" />
+    <Compile Include="Profiling\PBProfiling.cs" />
+    <Compile Include="Profiling\PBTracker.cs" />
     <Compile Include="RenderTweaks\HaERenderTweaks.Commands.cs" />
     <Compile Include="RenderTweaks\HaERenderTweaks.cs" />
     <Compile Include="HaETweakConfiguration.cs" />

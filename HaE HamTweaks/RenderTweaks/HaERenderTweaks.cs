@@ -26,7 +26,7 @@ using HaEPluginCore;
 using HaEPluginCore.Console;
 using HaEHamTweaks.Patching;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     public partial class HaERenderTweaks
     {

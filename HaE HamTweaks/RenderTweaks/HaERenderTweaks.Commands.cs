@@ -7,7 +7,7 @@ using HaEPluginCore;
 using HaEPluginCore.Console;
 using VRageRender;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     public partial class HaERenderTweaks
     {

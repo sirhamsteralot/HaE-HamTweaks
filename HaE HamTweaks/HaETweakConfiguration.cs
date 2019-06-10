@@ -6,7 +6,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Threading.Tasks;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     [Serializable]
     public class HaETweakConfiguration

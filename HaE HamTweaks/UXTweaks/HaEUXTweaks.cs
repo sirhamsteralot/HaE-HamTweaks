@@ -33,7 +33,7 @@ using HaEPluginCore.Console;
 using Sandbox.Game.Screens.Helpers;
 using HaEHamTweaks.Patching;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     public partial class HaEUXTweaks
     {

@@ -20,7 +20,7 @@ using HaEHamTweaks.Patching;
 using VRage.Input;
 using Sandbox.Game.World;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     public partial class HaEUXTweaks
     {

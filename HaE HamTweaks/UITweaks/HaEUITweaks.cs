@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using SpaceEngineers.Game.GUI;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     public partial class HaEUITweaks
     {

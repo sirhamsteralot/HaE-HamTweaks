@@ -9,8 +9,9 @@ using VRage.Plugins;
 using HaEPluginCore;
 using HaEHamTweaks.Managers;
 using HaEHamTweaks.Patching;
+using HaEHamTweaks.Profiling;
 
-namespace HaE_HamTweaks
+namespace HaEHamTweaks
 {
     public class HaEHamTweaks : IPlugin
     {
@@ -20,6 +21,7 @@ namespace HaE_HamTweaks
         public static HaEUITweaks uiTweaks;
         public static HaEUXTweaks uxTweaks;
         public static HaERenderTweaks renderTweaks;
+        public static PBProfiling pbProfiling;
 
         public static TexturePackManager textureManager;
 
@@ -34,6 +36,7 @@ namespace HaE_HamTweaks
             uiTweaks = new HaEUITweaks();
             uxTweaks = new HaEUXTweaks();
             renderTweaks = new HaERenderTweaks();
+            pbProfiling = new PBProfiling();
 
             textureManager = new TexturePackManager();
 
