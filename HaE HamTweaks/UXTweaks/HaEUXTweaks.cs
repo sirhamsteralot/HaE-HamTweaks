@@ -32,6 +32,7 @@ using ParallelTasks;
 using HaEPluginCore.Console;
 using Sandbox.Game.Screens.Helpers;
 using HaEHamTweaks.Patching;
+using VRage.Platform.Windows.Input; //Mydirectxinput moved to here
 
 namespace HaEHamTweaks
 {
@@ -108,7 +109,7 @@ namespace HaEHamTweaks
         
         public void EnableDevKeys()
         {
-            MyDirectXInput input = (MyDirectXInput)MyAPIGateway.Input;
+            MyVRageInput input = (MyVRageInput)MyAPIGateway.Input;
             if (input == null)
                 throw new Exception("Input null!");
 

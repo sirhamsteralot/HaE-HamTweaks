@@ -30,7 +30,8 @@ namespace HaEHamTweaks.Patching
         public static void PBProfilingPatch(HarmonyInstance harmony)
         {
             harmony.Patch(typeof(MyProgrammableBlock).GetMethod("ExecuteCode", BindingFlags.Public | BindingFlags.Instance),
-                new HarmonyMethod(typeof(Patch).GetMethod("PrefixIsSettingsExperimental", BindingFlags.Public | BindingFlags.Static)));
+                null,
+                new HarmonyMethod(typeof(ProfilerPatches).GetMethod("SuffixProfilePB", BindingFlags.NonPublic | BindingFlags.Static)));
 
             HaEConsole.WriteLine($"Patched MyProgrammableBlock.ExecuteCode");
         }

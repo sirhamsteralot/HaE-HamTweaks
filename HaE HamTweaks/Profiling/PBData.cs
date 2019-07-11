@@ -41,7 +41,7 @@ namespace HaEHamTweaks.Profiling
         {
             foreach(var pb in pbPair.Values)
             {
-                if (pb.PB.CustomName.ToString().Contains(Findstring))
+                if (pb.PBID.Contains(Findstring))
                     results.Add(pb);
             }
         }

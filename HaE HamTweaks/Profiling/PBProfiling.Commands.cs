@@ -13,6 +13,8 @@ namespace HaEHamTweaks.Profiling
         public void RegisterCommands()
         {
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetPBProfiling", "Enables/Disables the PB profiling, Usage: SetPBProfiling {bool}", SetPBProfiling));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("GetPBRuntime", "Returns a list of profiled pbs, Usage: GetPBRuntime {search}", GetPBRuntime));
+
         }
 
         #region commands
@@ -30,7 +32,7 @@ namespace HaEHamTweaks.Profiling
 
             foreach (var tracker in trackers)
             {
-                sb.Append("PB: ").Append(tracker.PBID).Append(" Average: ").AppendLine(tracker.AverageMS.ToString());
+                sb.Append("PB: ").Append(tracker.PBID).Append(" Average: ").Append(tracker.AverageMS.ToString()).AppendLine(" ms.");
             }
 
             return sb.ToString();
@@ -42,13 +44,13 @@ namespace HaEHamTweaks.Profiling
                 return "Not Enough args!";
 
             bool x;
-            if (!bool.TryParse(args[1], out x))
+            if (!bool.TryParse(args[0], out x))
                 return $"Could not parse ${args[0]} into bool!";
 
             profilingEnabled = x;
             ProfilerPatches.EnablePatch = x;
 
-            return $"Set Profiling: {args[1]}";
+            return $"Set Profiling: {args[0]}";
         }
         #endregion
     }
