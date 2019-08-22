@@ -12,6 +12,7 @@ using Sandbox.ModAPI;
 using Sandbox.Engine;
 using Sandbox.Engine.Utils;
 using Sandbox.Game;
+using Sandbox.Game.VoiceChat;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Entities.Blocks;
 using HaEPluginCore;
@@ -19,6 +20,7 @@ using HaEPluginCore.Console;
 using HaEHamTweaks.Patching;
 using VRage.Input;
 using Sandbox.Game.World;
+using System.Reflection;
 
 namespace HaEHamTweaks
 {
@@ -35,6 +37,7 @@ namespace HaEHamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("GetPlayerInfo", "Gets info for a player by their name, Usage: GetPlayerInfo {name}", GetPlayerInfo));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetGPSVisibleName", "Sets the visibility of multiple gps by their name containing a tag, Usage: SetGPSVisibleName {tag} {bool}", SetGPSVisibleName));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetGPSVisibleDescription", "Sets the visibility of multiple gps by their description containing a tag, Usage: SetGPSVisibleDescription {tag} {bool}", SetGPSVisibleDescription));
+            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetVC", "Sets the voice chat, Usage: SetVC {bool}", SetVoiceChat));
         }
 
 
@@ -51,6 +54,29 @@ namespace HaEHamTweaks
             SetGPSOverride(args[0], visibleSetting, TagFilter.name);
 
             return $"Set gps containing tag {args[0]} : {args[1]}";
+        }
+
+        private FieldInfo enabledRecording = typeof(MyVoiceChatSessionComponent).GetField("m_enabled", BindingFlags.Instance | BindingFlags.NonPublic);
+        public string SetVoiceChat(List<string> args)
+        {
+            if (args.Count < 0)
+                return "Not Enough args!";
+
+            bool enabled;
+            if (!bool.TryParse(args[0], out enabled))
+                return $"Could not parse ${args[0]} into bool!";
+
+            if (enabled)
+            {
+                MyVoiceChatSessionComponent.Static.StartRecording();
+                enabledRecording.SetValue(MyVoiceChatSessionComponent.Static, false);
+            }
+            else
+            {
+                enabledRecording.SetValue(MyVoiceChatSessionComponent.Static, true);
+            }
+
+            return $"Set voiceChat {args[0]}";
         }
 
         public string SetGPSVisibleDescription(List<string> args)
