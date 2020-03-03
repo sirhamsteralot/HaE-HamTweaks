@@ -75,40 +75,40 @@ namespace HaEHamTweaks
                 HaEConsole.WriteLine("lighting patch disabled.");
                 return;
             }
-            
 
-            RendertweakPatches.ApplyPatch();
+            HaEConsole.WriteLine("lighting patch is no longer supported.");
+            //RendertweakPatches.ApplyPatch();
 
-            string filePath = MyFileSystem.ContentPath + "\\Shaders\\Lighting\\LightDefs.hlsli";
-            StreamReader reader = new StreamReader(filePath);
-            string input = reader.ReadToEnd();
-            reader.Close();
+            //string filePath = MyFileSystem.ContentPath + "\\Shaders\\Lighting\\LightDefs.hlsli";
+            //StreamReader reader = new StreamReader(filePath);
+            //string input = reader.ReadToEnd();
+            //reader.Close();
 
-            if (input.Contains($"#define MAX_TILE_LIGHTS 256"))
-            {
-                using (StreamWriter writer = new StreamWriter(filePath, false))
-                {
-                    {
-                        string output = input.Replace("#define MAX_TILE_LIGHTS 256", $"#define MAX_TILE_LIGHTS {RendertweakPatches.pointlightCount}");
-                        writer.Write(output);
-                    }
-                    writer.Close();
-                }
+            //if (input.Contains($"#define MAX_TILE_LIGHTS 256"))
+            //{
+            //    using (StreamWriter writer = new StreamWriter(filePath, false))
+            //    {
+            //        {
+            //            string output = input.Replace("#define MAX_TILE_LIGHTS 256", $"#define MAX_TILE_LIGHTS {RendertweakPatches.pointlightCount}");
+            //            writer.Write(output);
+            //        }
+            //        writer.Close();
+            //    }
                 
-                try
-                {
-                    Directory.Delete(MyFileSystem.UserDataPath + "\\ShaderCache2", true);
-                } catch(DirectoryNotFoundException e)
-                {
-                    HaEConsole.WriteLine("Could not find shadercache!");
-                }
+            //    try
+            //    {
+            //        Directory.Delete(MyFileSystem.UserDataPath + "\\ShaderCache2", true);
+            //    } catch(DirectoryNotFoundException e)
+            //    {
+            //        HaEConsole.WriteLine("Could not find shadercache!");
+            //    }
                 
 
-                MyGuiSandbox.AddScreen(MyGuiSandbox.CreateMessageBox(MyMessageBoxStyleEnum.Info, MyMessageBoxButtonsType.YES_NO,
-                    new StringBuilder("Please restart SE for lighting change to take effect!"),
-                    new StringBuilder("HaE HamTweaks:"),
-                    null, null, null, null, new Action<MyGuiScreenMessageBox.ResultEnum>(ExitCallback)));
-            }
+            //    MyGuiSandbox.AddScreen(MyGuiSandbox.CreateMessageBox(MyMessageBoxStyleEnum.Info, MyMessageBoxButtonsType.YES_NO,
+            //        new StringBuilder("Please restart SE for lighting change to take effect!"),
+            //        new StringBuilder("HaE HamTweaks:"),
+            //        null, null, null, null, new Action<MyGuiScreenMessageBox.ResultEnum>(ExitCallback)));
+            //}
         }
         public void ExitCallback(MyGuiScreenMessageBox.ResultEnum callbackReturn)
         {
