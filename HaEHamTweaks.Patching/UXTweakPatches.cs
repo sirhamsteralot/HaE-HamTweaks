@@ -40,7 +40,7 @@ namespace HaEHamTweaks.Patching
             HaEConsole.WriteLine($"Patching UXPatches...");
 
             IsSettingsExperimentalPatch(harmony);
-            ColorGridOrBlockRequestValidationPatch(harmony);
+            //ColorGridOrBlockRequestValidationPatch(harmony);
 
             HaEConsole.WriteLine($"UXPatches: Patched 2 methods");
         }
