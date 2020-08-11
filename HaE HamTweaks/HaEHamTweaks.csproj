@@ -163,6 +163,8 @@
     <Compile Include="RenderTweaks\HaERenderTweaks.cs" />
     <Compile Include="HaETweakConfiguration.cs" />
     <Compile Include="HaETweakUtils.cs" />
+    <Compile Include="ServerTransfer\ServerTransfer.Commands.cs" />
+    <Compile Include="ServerTransfer\ServerTransfer.cs" />
     <Compile Include="UITweaks\HaEUITweaks.Commands.cs" />
     <Compile Include="UITweaks\HaEUITweaks.cs" />
     <Compile Include="UXTweaks\HaEUXTweaks.Commands.cs" />
