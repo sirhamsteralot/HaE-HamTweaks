@@ -20,7 +20,6 @@ namespace HaEHamTweaks
         public float chromaticFactor = 0.025f;
         public bool enableBlockEdges = true;
         public bool mainMenuBanners = true;
-        public bool lightingPatch = false;
 
         public HaETweakConfiguration()
         {

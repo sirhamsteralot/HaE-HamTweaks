@@ -31,8 +31,6 @@ using Sandbox.Engine.Utils;
 using ParallelTasks;
 using HaEPluginCore.Console;
 using Sandbox.Game.Screens.Helpers;
-using HaEHamTweaks.Patching;
-using VRage.Platform.Windows.Input; //Mydirectxinput moved to here
 
 namespace HaEHamTweaks
 {
@@ -50,7 +48,6 @@ namespace HaEHamTweaks
         public void OnInit()
         {
             MySession.OnLoading += MySession_OnLoading;
-            UXTweakPatches.ApplyPatch();
         }
 
         public void OnUpdate()
@@ -87,20 +84,20 @@ namespace HaEHamTweaks
                         if (gps.Name.Contains(tag))
                         {
                             gps.ShowOnHud = setting;
-                            gpsCollection.SendModifyGps(myId, (MyGps)gps);
+                            gpsCollection.SendModifyGpsRequest(myId, (MyGps)gps);
                         }
                         break;
                     case TagFilter.description:
                         if (gps.Description.Contains(tag))
                         {
                             gps.ShowOnHud = setting;
-                            gpsCollection.SendModifyGps(myId, (MyGps)gps);
+                            gpsCollection.SendModifyGpsRequest(myId, (MyGps)gps);
                         }
                         break;
                 }
             }
 
-            gpsCollection.updateForHud();
+            gpsCollection.UpdateForHud();
 
             gpsListCache.Clear();
             return amountChanged;
@@ -209,13 +206,6 @@ namespace HaEHamTweaks
         private FieldInfo originalBuilder = typeof(MyProjectorBase).GetField("m_originalGridBuilder", BindingFlags.Instance | BindingFlags.NonPublic);
         public void SetProjectedGrid(MyObjectBuilder_CubeGrid grid, MyProjectorBase projector)
         {
-            //if (grid == null)
-            //    return;
-
-            //MyEntities.RemapObjectBuilder(grid);
-            //originalBuilder.SetValue(projector, grid);
-            //sendNewBlueprint.Invoke(projector, new object[] { grid });
-
             ((IMyProjector)projector).SetProjectedGrid(grid);
         }
 

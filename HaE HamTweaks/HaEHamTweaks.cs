@@ -8,8 +8,6 @@ using System.Xml.Serialization;
 using VRage.Plugins;
 using HaEPluginCore;
 using HaEHamTweaks.Managers;
-using HaEHamTweaks.Patching;
-using HaEHamTweaks.Profiling;
 
 namespace HaEHamTweaks
 {
@@ -21,7 +19,6 @@ namespace HaEHamTweaks
         public static HaEUITweaks uiTweaks;
         public static HaEUXTweaks uxTweaks;
         public static HaERenderTweaks renderTweaks;
-        public static PBProfiling pbProfiling;
 
         public static TexturePackManager textureManager;
 
@@ -36,8 +33,6 @@ namespace HaEHamTweaks
             uiTweaks = new HaEUITweaks();
             uxTweaks = new HaEUXTweaks();
             renderTweaks = new HaERenderTweaks();
-            pbProfiling = new PBProfiling();
-
             textureManager = new TexturePackManager();
 
         }
