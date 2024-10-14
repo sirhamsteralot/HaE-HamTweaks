@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using VRage.Plugins;
 using HaEPluginCore;
 using HaEHamTweaks.Managers;
+using System.Threading;
 
 namespace HaEHamTweaks
 {
@@ -22,6 +23,8 @@ namespace HaEHamTweaks
 
         public static TexturePackManager textureManager;
 
+        public Timer delayedInit;
+
         public void Init(object gameInstance)
         {
             if (HaEConstants.versionNumber < MinBasePluginVersion)
@@ -30,25 +33,27 @@ namespace HaEHamTweaks
             config = new HaETweakConfiguration();
             DeSerialize();
 
-            uiTweaks = new HaEUITweaks();
-            uxTweaks = new HaEUXTweaks();
-            renderTweaks = new HaERenderTweaks();
-            textureManager = new TexturePackManager();
 
+            delayedInit = new Timer((object obj) => {
+                uiTweaks = new HaEUITweaks();
+                uxTweaks = new HaEUXTweaks();
+                renderTweaks = new HaERenderTweaks();
+                textureManager = new TexturePackManager();
+            }, null, 1000, Timeout.Infinite);
         }
 
         public void Update()
         {
-            uiTweaks.OnUpdate();
-            uxTweaks.OnUpdate();
-            renderTweaks.OnUpdate();
+            uiTweaks?.OnUpdate();
+            uxTweaks?.OnUpdate();
+            renderTweaks?.OnUpdate();
         }
 
         public void Dispose()
         {
-            uiTweaks.OnDispose();
-            uxTweaks.OnDispose();
-            renderTweaks.OnDispose();
+            uiTweaks?.OnDispose();
+            uxTweaks?.OnDispose();
+            renderTweaks?.OnDispose();
             Save();
         }
 

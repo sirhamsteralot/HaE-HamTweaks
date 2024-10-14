@@ -31,6 +31,7 @@ using Sandbox.Engine.Utils;
 using ParallelTasks;
 using HaEPluginCore.Console;
 using Sandbox.Game.Screens.Helpers;
+using VRage.Utils;
 
 namespace HaEHamTweaks
 {
@@ -42,6 +43,7 @@ namespace HaEHamTweaks
         public HaEUXTweaks()
         {
             OnInit();
+
             RegisterCommands();
         }
 
