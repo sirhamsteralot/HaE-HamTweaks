@@ -8,20 +8,19 @@ using System.Xml.Serialization;
 using VRage.Plugins;
 using HaEPluginCore;
 using HaEHamTweaks.Managers;
-using HaEHamTweaks.Patching;
-using HaEHamTweaks.Profiling;
+using System.Threading;
+using HaEPluginCore.Console;
 
 namespace HaEHamTweaks
 {
     public class HaEHamTweaks : IPlugin
     {
-        public const int MinBasePluginVersion = 1060;
+        public const int MinBasePluginVersion = 1080;
 
         public static HaETweakConfiguration config;
         public static HaEUITweaks uiTweaks;
         public static HaEUXTweaks uxTweaks;
         public static HaERenderTweaks renderTweaks;
-        public static PBProfiling pbProfiling;
 
         public static TexturePackManager textureManager;
 
@@ -33,27 +32,27 @@ namespace HaEHamTweaks
             config = new HaETweakConfiguration();
             DeSerialize();
 
-            uiTweaks = new HaEUITweaks();
-            uxTweaks = new HaEUXTweaks();
-            renderTweaks = new HaERenderTweaks();
-            pbProfiling = new PBProfiling();
 
-            textureManager = new TexturePackManager();
-
+            HaEConsole.ExecWhenPluginReady(() => {
+                uiTweaks = new HaEUITweaks();
+                uxTweaks = new HaEUXTweaks();
+                renderTweaks = new HaERenderTweaks();
+                textureManager = new TexturePackManager();
+            });
         }
 
         public void Update()
         {
-            uiTweaks.OnUpdate();
-            uxTweaks.OnUpdate();
-            renderTweaks.OnUpdate();
+            uiTweaks?.OnUpdate();
+            uxTweaks?.OnUpdate();
+            renderTweaks?.OnUpdate();
         }
 
         public void Dispose()
         {
-            uiTweaks.OnDispose();
-            uxTweaks.OnDispose();
-            renderTweaks.OnDispose();
+            uiTweaks?.OnDispose();
+            uxTweaks?.OnDispose();
+            renderTweaks?.OnDispose();
             Save();
         }
 

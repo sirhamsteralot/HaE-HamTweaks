@@ -17,7 +17,6 @@ using Sandbox.Game.Entities;
 using Sandbox.Game.Entities.Blocks;
 using HaEPluginCore;
 using HaEPluginCore.Console;
-using HaEHamTweaks.Patching;
 using VRage.Input;
 using Sandbox.Game.World;
 using System.Reflection;
@@ -33,7 +32,6 @@ namespace HaEHamTweaks
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetProgrammableBlockScripts", "Sets all PB scripts on a grid to a certain script, Usage: SetProgrammableBlockScripts {gridName} {pbNameTag} {scriptName}", SetProgrammableBlockScripts));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetProjectorProjections", "Sets all Projector projections on a grid to a certain blueprint, Usage: SetProjectorProjections {gridName} {projectorTag} {blueprintName}", SetProjectorProjections));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetSensitivity", "Sets mouse sensitivity, Usage: SetSensitivity {sensitivity float}", SetSensitivity));
-            HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetPaintOverride", "Sets paint allow override, Usage: SetSensitivity {bool}", SetPaintOverride));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("GetPlayerInfo", "Gets info for a player by their name, Usage: GetPlayerInfo {name}", GetPlayerInfo));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetGPSVisibleName", "Sets the visibility of multiple gps by their name containing a tag, Usage: SetGPSVisibleName {tag} {bool}", SetGPSVisibleName));
             HaEConsole.Instance.RegisterCommand(new HaEConsoleCommand("SetGPSVisibleDescription", "Sets the visibility of multiple gps by their description containing a tag, Usage: SetGPSVisibleDescription {tag} {bool}", SetGPSVisibleDescription));
@@ -120,20 +118,6 @@ namespace HaEHamTweaks
             }
 
 
-        }
-
-        public string SetPaintOverride(List<string> args)
-        {
-            if (args.Count < 1)
-                return "Not Enough args!";
-
-            bool paintOverride;
-            if (!bool.TryParse(args[0], out paintOverride))
-                return $"Could not parse ${args[0]} into bool!";
-
-            UXTweakPatches.AllowEveryonePaintOverride = paintOverride;
-
-            return $"Set allow paint override: {paintOverride}";
         }
 
         public string SetSensitivity(List<string> args)

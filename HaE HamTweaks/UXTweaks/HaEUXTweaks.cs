@@ -31,8 +31,7 @@ using Sandbox.Engine.Utils;
 using ParallelTasks;
 using HaEPluginCore.Console;
 using Sandbox.Game.Screens.Helpers;
-using HaEHamTweaks.Patching;
-using VRage.Platform.Windows.Input; //Mydirectxinput moved to here
+using VRage.Utils;
 
 namespace HaEHamTweaks
 {
@@ -44,13 +43,13 @@ namespace HaEHamTweaks
         public HaEUXTweaks()
         {
             OnInit();
+
             RegisterCommands();
         }
 
         public void OnInit()
         {
             MySession.OnLoading += MySession_OnLoading;
-            UXTweakPatches.ApplyPatch();
         }
 
         public void OnUpdate()
@@ -65,7 +64,7 @@ namespace HaEHamTweaks
 
         private void MySession_OnLoading()
         {
-            EnableDevKeys();
+
         }
 
         #region methods
@@ -87,37 +86,23 @@ namespace HaEHamTweaks
                         if (gps.Name.Contains(tag))
                         {
                             gps.ShowOnHud = setting;
-                            gpsCollection.SendModifyGps(myId, (MyGps)gps);
+                            gpsCollection.SendModifyGpsRequest(myId, (MyGps)gps);
                         }
                         break;
                     case TagFilter.description:
                         if (gps.Description.Contains(tag))
                         {
                             gps.ShowOnHud = setting;
-                            gpsCollection.SendModifyGps(myId, (MyGps)gps);
+                            gpsCollection.SendModifyGpsRequest(myId, (MyGps)gps);
                         }
                         break;
                 }
             }
 
-            gpsCollection.updateForHud();
+            gpsCollection.UpdateForHud();
 
             gpsListCache.Clear();
             return amountChanged;
-        }
-
-        
-        public void EnableDevKeys()
-        {
-            MyVRageInput input = (MyVRageInput)MyAPIGateway.Input;
-            if (input == null)
-                throw new Exception("Input null!");
-
-            PropertyInfo property = input.GetType().GetProperty("ENABLE_DEVELOPER_KEYS", BindingFlags.Instance | BindingFlags.Public);
-            if (property == null)
-                throw new Exception("Property null!");
-
-            property.GetSetMethod(true).Invoke(input, new object[] { true });
         }
 
         public List<IMyCubeGrid> GetGridGroupWithName(string name)
@@ -209,13 +194,6 @@ namespace HaEHamTweaks
         private FieldInfo originalBuilder = typeof(MyProjectorBase).GetField("m_originalGridBuilder", BindingFlags.Instance | BindingFlags.NonPublic);
         public void SetProjectedGrid(MyObjectBuilder_CubeGrid grid, MyProjectorBase projector)
         {
-            //if (grid == null)
-            //    return;
-
-            //MyEntities.RemapObjectBuilder(grid);
-            //originalBuilder.SetValue(projector, grid);
-            //sendNewBlueprint.Invoke(projector, new object[] { grid });
-
             ((IMyProjector)projector).SetProjectedGrid(grid);
         }
 

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaEHamTweaks", "HaE HamTweaks\HaEHamTweaks.csproj", "{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaEHamTweaks.Patching", "HaEHamTweaks.Patching\HaEHamTweaks.Patching.csproj", "{F1F18D15-0C57-494C-AACD-2E91FCEA1870}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +21,6 @@ Global
 		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Release|x64.ActiveCfg = Release|x64
 		{2B1CF6A5-E929-4F16-BC1A-B01F520CE2E9}.Release|x64.Build.0 = Release|x64
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Debug|x64.Build.0 = Debug|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Release|x64.ActiveCfg = Release|Any CPU
-		{F1F18D15-0C57-494C-AACD-2E91FCEA1870}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
