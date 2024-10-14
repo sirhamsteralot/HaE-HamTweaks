@@ -9,12 +9,13 @@ using VRage.Plugins;
 using HaEPluginCore;
 using HaEHamTweaks.Managers;
 using System.Threading;
+using HaEPluginCore.Console;
 
 namespace HaEHamTweaks
 {
     public class HaEHamTweaks : IPlugin
     {
-        public const int MinBasePluginVersion = 1060;
+        public const int MinBasePluginVersion = 1080;
 
         public static HaETweakConfiguration config;
         public static HaEUITweaks uiTweaks;
@@ -22,8 +23,6 @@ namespace HaEHamTweaks
         public static HaERenderTweaks renderTweaks;
 
         public static TexturePackManager textureManager;
-
-        public Timer delayedInit;
 
         public void Init(object gameInstance)
         {
@@ -34,12 +33,12 @@ namespace HaEHamTweaks
             DeSerialize();
 
 
-            delayedInit = new Timer((object obj) => {
+            HaEConsole.ExecWhenPluginReady(() => {
                 uiTweaks = new HaEUITweaks();
                 uxTweaks = new HaEUXTweaks();
                 renderTweaks = new HaERenderTweaks();
                 textureManager = new TexturePackManager();
-            }, null, 1000, Timeout.Infinite);
+            });
         }
 
         public void Update()
