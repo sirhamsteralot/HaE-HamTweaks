@@ -64,7 +64,7 @@ namespace HaEHamTweaks
 
         private void MySession_OnLoading()
         {
-            EnableDevKeys();
+
         }
 
         #region methods
@@ -103,20 +103,6 @@ namespace HaEHamTweaks
 
             gpsListCache.Clear();
             return amountChanged;
-        }
-
-        
-        public void EnableDevKeys()
-        {
-            MyVRageInput input = (MyVRageInput)MyAPIGateway.Input;
-            if (input == null)
-                throw new Exception("Input null!");
-
-            PropertyInfo property = input.GetType().GetProperty("ENABLE_DEVELOPER_KEYS", BindingFlags.Instance | BindingFlags.Public);
-            if (property == null)
-                throw new Exception("Property null!");
-
-            property.GetSetMethod(true).Invoke(input, new object[] { true });
         }
 
         public List<IMyCubeGrid> GetGridGroupWithName(string name)
